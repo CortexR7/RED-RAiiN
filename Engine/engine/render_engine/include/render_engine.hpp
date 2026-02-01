@@ -1,6 +1,7 @@
 #ifndef RENDER_ENGINE_HPP
 #define RENDER_ENGINE_HPP
 
+#include "vulkan/vulkan_core.h"
 #include <vulkanaid.hpp>
 #include <vulkan/vulkan.h>
 #include <GLFW/glfw3.h>
@@ -79,6 +80,8 @@ public:
     // Vulkan Buffer
     VkBuffer vertexBuffer;
     VkDeviceMemory vertexBufferMemory;
+    VkBuffer indexBuffer;
+    VkDeviceMemory indexBufferMemory;
 
     // swapchain recreation members
     bool framebufferResized = false;
@@ -97,6 +100,7 @@ public:
     void recordCommandBuffer(VkCommandBuffer& commandBuffer, uint32_t imageIndex);
     void createSyncObjects();
     void createVertexBuffer();
+    void createIndexBuffer();
     void drawFrame();
     void recreateSwapChain();
     void cleanUpSwapChain();

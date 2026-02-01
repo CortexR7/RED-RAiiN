@@ -1,3 +1,4 @@
+#include "vulkan/vulkan_core.h"
 #include <render_engine.hpp>
 #include <iostream>
 
@@ -5,27 +6,27 @@
 void RenderEngine::createCommandBuffer()
 {
     this->commandBuffers.resize(MAX_FRAMES_IN_FLIGHT);
-    
+
     VkCommandBufferAllocateInfo allocInfo{};
     allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
     allocInfo.commandPool = RenderEngine::commandPool;
     allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
     allocInfo.commandBufferCount = static_cast<uint32_t>(commandBuffers.size());
 
-    if (vkAllocateCommandBuffers(device, &allocInfo, commandBuffers.data()) != VK_SUCCESS) 
+    if (vkAllocateCommandBuffers(device, &allocInfo, commandBuffers.data()) != VK_SUCCESS)
     {
         throw std::runtime_error("failed to allocate command buffers!");
     }
 }
 
-void RenderEngine::recordCommandBuffer(VkCommandBuffer& commandBuffer, uint32_t imageIndex) 
+void RenderEngine::recordCommandBuffer(VkCommandBuffer& commandBuffer, uint32_t imageIndex)
 {
     VkCommandBufferBeginInfo beginInfo{};
     beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
     beginInfo.flags = 0; // Optional
     beginInfo.pInheritanceInfo = nullptr; // Optional
 
-    if (vkBeginCommandBuffer(commandBuffer, &beginInfo) != VK_SUCCESS) 
+    if (vkBeginCommandBuffer(commandBuffer, &beginInfo) != VK_SUCCESS)
     {
         throw std::runtime_error("failed to begin recording command buffer!");
     }
@@ -50,6 +51,9 @@ void RenderEngine::recordCommandBuffer(VkCommandBuffer& commandBuffer, uint32_t 
     VkDeviceSize offsets[] = {0};
     vkCmdBindVertexBuffers(commandBuffer, 0, 1, vertexBuffers, offsets);
 
+    // BINDING THE INDEX BUFFER
+    vkCmdBindIndexBuffer(commandBuffer, indexBuffer, 0, VK_INDEX_TYPE_UINT16);
+
     // configuring dynamic states like viewport and scissor now
     VkViewport viewport{};
     viewport.x = 0.0f;
@@ -66,10 +70,11 @@ void RenderEngine::recordCommandBuffer(VkCommandBuffer& commandBuffer, uint32_t 
     vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
 
 
-    vkCmdDraw(commandBuffer, 3, 1, 0, 0);       // THE 3 HERE CAN BE LIKE THAT BECAUSE THE DUMMY DATA HAS 3 VERTICES
-    vkCmdEndRenderPass(commandBuffer);          // FOR MORE INFO ON THAT LOOK AT THE create_vertex_buffer.cpp FILE
+    vkCmdDrawIndexed(commandBuffer, static_cast<uint32_t>(6), 1, 0, 0, 0);       // THE 6 HERE CAN BE LIKE THAT BECAUSE THE DUMMY DATA HAS 6 INDICES
+    vkCmdEndRenderPass(commandBuffer);                                           // FOR MORE INFO ON THAT LOOK AT THE create_vertex_buffer.cpp FILE
+                                                                                 // AND HAVE A LOOK AT THE create_index_buffer.cpp
 
-    if (vkEndCommandBuffer(commandBuffer) != VK_SUCCESS) 
+    if (vkEndCommandBuffer(commandBuffer) != VK_SUCCESS)
     {
         throw std::runtime_error("failed to record command buffer!");
     }

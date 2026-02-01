@@ -92,19 +92,17 @@ void RenderEngine::copyBuffer(VkBuffer& src, VkBuffer& dst, VkDeviceSize size)
 */
 
 // DUMMY DATA
-#define VERTEX_DATA_SIZE 3
-Vertex vertecies[VERTEX_DATA_SIZE];
+const std::vector<Vertex> vertices = {
+    {{-0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}},
+    {{0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}},
+    {{0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}},
+    {{-0.5f, 0.5f}, {1.0f, 1.0f, 1.0f}}
+};
 
 void RenderEngine::createVertexBuffer()
 {
-    // INIT THE DUMMY DATA HERE:
-    vertecies[0] = {{0.0f, -0.5f}, {1.0f, 0.0f, 0.0f}}; // bottom vertex, red color
-    vertecies[1] = {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}};  // top right vertex, green color
-    vertecies[2] = {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}; // top left vertex, blue color
-    // END OF DUMMY DATA INIT
-
     // SIZE OF THE DUMMY DATA
-    VkDeviceSize bufferSize = sizeof(Vertex) * VERTEX_DATA_SIZE;
+    VkDeviceSize bufferSize = sizeof(Vertex) * vertices.size();
 
 
 
@@ -123,12 +121,12 @@ void RenderEngine::createVertexBuffer()
     // COPY VERTEX DATA TO THE STAGING BUFFER
     void* data;
     vkMapMemory(this->device, stagingBufferMemory, 0, bufferSize, 0, &data);
-    memcpy(data, vertecies, (size_t)bufferSize);
+    memcpy(data, vertices.data(), (size_t)bufferSize);
     vkUnmapMemory(this->device, stagingBufferMemory);
 
     // Create Vertex Buffer
     createBuffer(
-        sizeof(Vertex) * VERTEX_DATA_SIZE,
+        sizeof(Vertex) * vertices.size(),
         VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
         VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
         this->vertexBuffer,
