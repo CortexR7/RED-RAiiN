@@ -1,4 +1,3 @@
-#include "vulkan/vulkan_core.h"
 #include <render_engine.hpp>
 #include <iostream>
 #include <Vertex.hpp>
