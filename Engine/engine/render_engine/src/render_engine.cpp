@@ -56,7 +56,7 @@ void RenderEngine::initWindow()
     glfwInit();
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
-    RenderEngine::window = glfwCreateWindow(WIDTH, HEIGHT, "RAiiN Engine", nullptr, nullptr);
+    RenderEngine::window = glfwCreateWindow(WIDTH, HEIGHT, "RED-RAiiN Engine", nullptr, nullptr);
     glfwSetFramebufferSizeCallback(window, framebufferResizeCallback);
     glfwSetWindowUserPointer(window, this);
 }
