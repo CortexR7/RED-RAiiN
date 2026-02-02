@@ -29,9 +29,9 @@ void createVkInstance(VkInstance& instance)
 
     VkApplicationInfo appInfo{};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    appInfo.pApplicationName = "RAiiN Engine";
+    appInfo.pApplicationName = "RED RAiiN";
     appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-    appInfo.pEngineName = "RAiiN Engine";
+    appInfo.pEngineName = "RED RAiiN ENGINE";
     appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
     appInfo.apiVersion = VK_MAKE_API_VERSION(0, 1, 0, 0);
 
