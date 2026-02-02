@@ -79,7 +79,7 @@ sources = [
 
 # Executable
 exe = executable(
-  'RAiiN',
+  'RED-RAiiN',
   sources,
   include_directories: incdir,
   dependencies: dependencies,
