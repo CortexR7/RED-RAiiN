@@ -1,7 +1,6 @@
 #ifndef RENDER_ENGINE_HPP
 #define RENDER_ENGINE_HPP
 
-#include "vulkan/vulkan_core.h"
 #include <vulkanaid.hpp>
 #include <vulkan/vulkan.h>
 #include <GLFW/glfw3.h>
