@@ -1,5 +1,11 @@
 # Mark SPIR-V binaries
 *.spv linguist-language=SPIR-V
 
-# Mark GLSL shaders
+# Mark shaders
 *.glsl linguist-language=GLSL
+*.slang linguist-language=Slang
+
+
+# Folder to ignore for linguist.
+include/** linguist-detectable=false
+lib/** linguist-detectable=false
