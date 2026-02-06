@@ -5,6 +5,7 @@
 #include <vulkan/vulkan.h>
 #include <GLFW/glfw3.h>
 #include <vector>
+#include <cstring>
 
 #ifdef _WIN32
     #define GLFW_INCLUDE_VULKAN
