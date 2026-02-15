@@ -1,17 +1,18 @@
-struct VSInput {
-    float3 color : COLOR0;
-    float3 colorx : COLOR1;
+struct FSInput
+{
+    [[vk::location(0)]]
+    float3 fragColor;
 };
 
-struct FSOutput {
-    float4 color : SV_Target0;
+struct FSOutput
+{
+    [[vk::location(0)]]
+    float4 outColor;
 };
 
-[shader("fragment")]
-FSOutput main(VSInput input) {
+FSOutput main(FSInput input)
+{
     FSOutput output;
-    float constant_value = 1.5;
-    output.color = float4(input.color.x + input.colorx.y, input.color.y + input.colorx.z, input.color.z + input.colorx.x, 1.0); // Output the interpolated color
-    output.color *= constant_value;
+    output.outColor = float4(input.fragColor, 1.0);
     return output;
 }
