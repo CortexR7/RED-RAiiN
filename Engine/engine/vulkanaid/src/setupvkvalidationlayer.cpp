@@ -10,7 +10,7 @@
 VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
     std::string violeteCol = "\033[38;5;93m";
     std::string resetCol = "\033[0m";
-    std::cerr << violeteCol << "[VULKAN VALIDATION LAYER]: "<< resetCol << pCallbackData->pMessage << "\n" << std::endl;
+    std::cerr << violeteCol << "[VULKAN VALIDATION LAYER]: "<< resetCol << pCallbackData->pMessage << std::endl;
     return VK_FALSE;
 }
 
