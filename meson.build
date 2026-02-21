@@ -76,6 +76,7 @@ sources = [
   'Engine/engine/render_engine/src/create_vertex_buffer.cpp',
   'Engine/engine/render_engine/src/create_index_buffer.cpp',
   'Engine/engine/render_engine/src/WINDOW.cpp',
+  'Engine/engine/render_engine/src/RENDER_ENGINE2.cpp',
 ]
 
 # Executable

@@ -8,7 +8,6 @@
 *   Copyright (c) 2026 CortexR7
 *
 *   This class is supposed to manage all byitself the GLFW window
-*   and the Vulkan window surface.
 */
 
 
@@ -28,23 +27,34 @@
 
 
 class WINDOW{
+
     private: 
     GLFWwindow* window;    
     VkSurfaceKHR surface;
+    uint32_t width = 600;
+    uint32_t height = 600;
 
     public:
     // Setters and Getters
 
     void setWindow(GLFWwindow* window);
     void setSurface(VkSurfaceKHR surface);
+    void setHeight(uint16_t height);
+    void setWidth(uint16_t width);
 
     GLFWwindow* getWindow();
     VkSurfaceKHR getSurface();
+    uint16_t getWIdth();
+    uint16_t getHeight();
 
 
     // constructor and destructor
     WINDOW();
     ~WINDOW();
+
+    // Member functions
+    void INIT_WINDOW();
+    void WINDOW_LOOP();
 };
 
 #endif
