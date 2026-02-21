@@ -2,6 +2,8 @@
 #define RENDER_ENGINE_2_HPP
 
 #include <WINDOW.hpp>
+#include <VULKAN_INSTANCE.hpp>
+
 
 /*
 *  Copyright (c) 2025 CortexR7
@@ -20,6 +22,8 @@ class RENDER_ENGINE2{
 
     public:
     WINDOW MAIN_WINDOW;
+    VULKAN_INSTANCE VK_INSTANCE;
+    
 
     void INIT_ENGINE();
     void RUN_ENGINE();
