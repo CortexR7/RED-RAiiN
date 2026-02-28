@@ -6,7 +6,7 @@
 
 
 /*
-*  Copyright (c) 2025 CortexR7
+*  Copyright (c) 2026 CortexR7
 *
 *  This header defines the render_engine itself and all its core functionalities
 *  the engine is still in alpha stage and is under heavy development.
