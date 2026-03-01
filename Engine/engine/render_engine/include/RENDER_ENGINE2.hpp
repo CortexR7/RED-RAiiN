@@ -30,6 +30,9 @@ class RENDER_ENGINE2{
     void INIT_ENGINE();
     void RUN_ENGINE();
     void FREE_ENGINE();
+
+    RENDER_ENGINE2();
+    ~RENDER_ENGINE2();
 };
 
 #endif
