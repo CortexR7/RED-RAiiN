@@ -118,5 +118,6 @@ void VULKAN_INSTANCE::INIT_INSTANCE()
 
 void VULKAN_INSTANCE::FREE()
 {
+    if(this->DEBUG){DestroyDebugUtilsMessengerEXT(this->INSTANCE, this->DEBUG_MESSENGER, nullptr);}
     vkDestroyInstance(this->INSTANCE, nullptr);
 }

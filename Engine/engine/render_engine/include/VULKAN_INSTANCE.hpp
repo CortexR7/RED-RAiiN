@@ -12,6 +12,7 @@ class VULKAN_INSTANCE{
     VkInstance INSTANCE{};
     bool DEBUG = true;
     const std::vector<const char*> validationLayers = {"VK_LAYER_KHRONOS_validation"};
+    VkDebugUtilsMessengerEXT DEBUG_MESSENGER{};
     void setupDebugMessengerValidation(VkInstance& instance, VkDebugUtilsMessengerEXT& debugMessenger);
 
     // private helper methods
