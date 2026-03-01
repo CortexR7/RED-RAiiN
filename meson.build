@@ -12,11 +12,10 @@ project(
 
 # Include dirs
 incdir = include_directories(
-  'include',
+  'Dependencies/include',
   'Engine/tools',
   'Engine/engine/vulkanaid/include',
   'Engine/engine/render_engine/include',
-  'Engine/tools',
 )
 
 # find python3 program
@@ -42,11 +41,11 @@ add_project_arguments(compiler_args, language: 'cpp')
 if host_machine.system() == 'windows'
   glfw_dep = declare_dependency(
     include_directories: incdir,
-    link_args: [meson.project_source_root() / 'lib/glfw3_mt.lib'],
+    link_args: [meson.project_source_root() / 'Dependencies/lib/glfw3_mt.lib'],
   )
   vulkan_dep = declare_dependency(
     include_directories: incdir,
-    link_args: [meson.project_source_root() / 'lib/vulkan-1.lib'],
+    link_args: [meson.project_source_root() / 'Dependencies/lib/vulkan-1.lib'],
   )
 else
   # On Linux, use pkg-config to find glfw3 and Vulkan
