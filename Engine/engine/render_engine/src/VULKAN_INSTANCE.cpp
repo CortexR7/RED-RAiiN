@@ -4,7 +4,7 @@
 #include <stdexcept>
 
 // setters and getters
-VkInstance VULKAN_INSTANCE::getInstance()
+VkInstance& VULKAN_INSTANCE::getInstance()
 {
     return this->INSTANCE;
 }
@@ -75,8 +75,12 @@ void VULKAN_INSTANCE::setupDebugMessengerValidation(VkInstance& instance, VkDebu
 }
 
 // member functions
-void VULKAN_INSTANCE::INIT_INSTANCE(const WINDOW& MAIN_WINDOW)
+void VULKAN_INSTANCE::INIT_INSTANCE()
 {
+    if(glfwInit() == GLFW_FALSE)
+    {
+        throw std::runtime_error("Failed to init GLWF !");
+    }
     if(this->DEBUG && !validationSupport()){
         throw std::runtime_error("Validation layers requested, but not available!");
     }
@@ -110,4 +114,9 @@ void VULKAN_INSTANCE::INIT_INSTANCE(const WINDOW& MAIN_WINDOW)
     if (vkCreateInstance(&createInfo, nullptr, &this->INSTANCE) != VK_SUCCESS) {
         throw std::runtime_error("failed to create instance!");
     }
+}
+
+void VULKAN_INSTANCE::FREE()
+{
+    vkDestroyInstance(this->INSTANCE, nullptr);
 }

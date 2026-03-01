@@ -2,8 +2,8 @@
 #define VULKAN_INSTANCE_HPP
 
 #include <vulkan/vulkan.h>
-#include <WINDOW.hpp>
 #include <vector>
+#include <GLFW_PREPROCESSOR.hpp>
 
 
 class VULKAN_INSTANCE{
@@ -18,8 +18,10 @@ class VULKAN_INSTANCE{
     std::vector<const char*> getRequiredExtensions();
 
     public:
-    VkInstance getInstance();
-    void INIT_INSTANCE(const WINDOW& MAIN_WINDOW);
+    VkInstance& getInstance();
+    void INIT_INSTANCE();
+
+    void FREE();
 };
 
 #endif

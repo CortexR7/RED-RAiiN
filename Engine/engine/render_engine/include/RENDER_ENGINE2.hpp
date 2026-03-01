@@ -3,6 +3,7 @@
 
 #include <WINDOW.hpp>
 #include <VULKAN_INSTANCE.hpp>
+#include <VULKAN_PHYSICAL_DEVICE.hpp>
 
 
 /*
@@ -23,10 +24,12 @@ class RENDER_ENGINE2{
     public:
     WINDOW MAIN_WINDOW;
     VULKAN_INSTANCE VK_INSTANCE;
+    VULKAN_PHYSICAL_DEVICE VKP_DEVICE;
     
 
     void INIT_ENGINE();
     void RUN_ENGINE();
+    void FREE_ENGINE();
 };
 
 #endif

@@ -31,7 +31,7 @@ void WINDOW::setWidth(uint16_t width)
 
 
 
-VkSurfaceKHR WINDOW::getSurface()
+VkSurfaceKHR& WINDOW::getSurface()
 {
     return this->surface;
 }
@@ -50,18 +50,24 @@ WINDOW::WINDOW(){}
 WINDOW::~WINDOW(){}
 
 
-// member functions
-void WINDOW::INIT_WINDOW()
-{
-    using namespace std;
 
-    if(glfwInit() == GLFW_FALSE)
-    {
-        cout << WINDOW_OBJ_STRING << "Failed to init GLFW !\n"; 
+// functions only visible for the current TU
+static void createvksurface(const VkInstance& instance, VkSurfaceKHR& surface, GLFWwindow*& window)
+{
+    if (glfwCreateWindowSurface(instance, window, nullptr, &surface) != VK_SUCCESS) {
+        throw std::runtime_error("failed to create window surface!");
     }
+}
+
+
+// member functions
+void WINDOW::INIT_WINDOW(VULKAN_INSTANCE& INSTANCE)
+{
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
     this->window = glfwCreateWindow(this->width, this->height, "RED-RAiiN Engine", nullptr, nullptr);
+
+    createvksurface(INSTANCE.getInstance(), this->surface, this->window);
 }
 
 void WINDOW::WINDOW_LOOP()
@@ -70,4 +76,9 @@ void WINDOW::WINDOW_LOOP()
     {
         glfwPollEvents();
     }
+}
+
+void WINDOW::FREE(VULKAN_INSTANCE& INSTNACE)
+{
+    vkDestroySurfaceKHR(INSTNACE.getInstance(), this->surface, nullptr);
 }

@@ -2,6 +2,8 @@
 #define VULKAN_PHYSICAL_DEVICE_HPP
 
 #include <vulkan/vulkan.h>
+#include <WINDOW.hpp>
+#include <VULKAN_INSTANCE.hpp>
 
 /*
 *  Copyright (c) 2025 CortexR7
@@ -17,6 +19,7 @@ class VULKAN_PHYSICAL_DEVICE{
     VkPhysicalDevice PH_DEVICE;
 
     public:
+    void INIT_DEVICE(WINDOW& WIN, VULKAN_INSTANCE& INSTANCE);
 };
 
 #endif

@@ -78,6 +78,8 @@ sources = [
   'Engine/engine/render_engine/src/WINDOW.cpp',
   'Engine/engine/render_engine/src/RENDER_ENGINE2.cpp',
   'Engine/engine/render_engine/src/VULKAN_INSTANCE.cpp',
+  'Engine/engine/render_engine/src/VULKAN_PHYSICAL_DEVICE.cpp',
+  'Engine/engine/render_engine/src/VULKAN_QUEUE.cpp',
 ]
 
 # Executable

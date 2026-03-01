@@ -2,28 +2,14 @@
 #define WINDOW_HEADER_HPP
 
 #include <vulkan/vulkan.h>
-#include <GLFW/glfw3.h>
+#include <GLFW_PREPROCESSOR.hpp>
+#include <VULKAN_INSTANCE.hpp>
 
 /*
 *   Copyright (c) 2026 CortexR7
 *
 *   This class is supposed to manage all byitself the GLFW window
 */
-
-
-// required preprocessor logic to expose proper header based on current OS
-
-#ifdef _WIN32
-    #define GLFW_INCLUDE_VULKAN
-    #define VK_USE_PLATFORM_WIN32_KHR
-    #define GLFW_EXPOSE_NATIVE_WIN32
-    #include <GLFW/glfw3native.h>
-#elif __linux__
-    #define GLFW_INCLUDE_VULKAN
-    #define VK_USE_PLATFORM_WAYLAND_KHR
-    #define GLFW_EXPOSE_NATIVE_WAYLAND
-    #include <GLFW/glfw3native.h>
-#endif
 
 
 class WINDOW{
@@ -43,7 +29,7 @@ class WINDOW{
     void setWidth(uint16_t width);
 
     GLFWwindow* getWindow();
-    VkSurfaceKHR getSurface();
+    VkSurfaceKHR& getSurface();
     uint16_t getWIdth();
     uint16_t getHeight();
 
@@ -53,8 +39,10 @@ class WINDOW{
     ~WINDOW();
 
     // Member functions
-    void INIT_WINDOW();
+    void INIT_WINDOW(VULKAN_INSTANCE& INSTANCE);
     void WINDOW_LOOP();
+
+    void FREE(VULKAN_INSTANCE& INSTNACE);
 };
 
 #endif
