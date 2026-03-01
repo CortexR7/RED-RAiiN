@@ -1,7 +1,7 @@
 project(
   'mesontest',
   'cpp',
-  meson_version: '>= 1.3.0',
+  meson_version: '>= 1.9.0',
   version: '0.1',
   default_options: [
     'cpp_std=c++20',
@@ -9,6 +9,18 @@ project(
     'warning_level=3',
   ],
 )
+
+# Include dirs
+incdir = include_directories(
+  'include',
+  'Engine/tools',
+  'Engine/engine/vulkanaid/include',
+  'Engine/engine/render_engine/include',
+  'Engine/tools',
+)
+
+# find python3 program
+py3 = find_program('python3', required: true)
 
 # Platform-specific compiler args
 compiler_args = []
@@ -25,14 +37,6 @@ endif
 
 add_project_arguments(compiler_args, language: 'cpp')
 
-# Include dirs
-incdir = include_directories(
-  'include',
-  'Engine/tools',
-  'Engine/engine/vulkanaid/include',
-  'Engine/engine/render_engine/include',
-  'Engine/tools',
-)
 
 # Dependencies
 if host_machine.system() == 'windows'
@@ -49,38 +53,15 @@ else
   glfw_dep = dependency('glfw3', required: true)
   vulkan_dep = dependency('vulkan', required: true)
 endif
-
 dependencies = [glfw_dep, vulkan_dep]
 
-# Sources
-sources = [
-  'src/main2.cpp',
-  'Engine/engine/vulkanaid/src/vulkanaid.cpp',
-  'Engine/engine/vulkanaid/src/vulkanaidraii.cpp',
-  'Engine/engine/vulkanaid/src/createvkinstance.cpp',
-  'Engine/engine/vulkanaid/src/setupvkvalidationlayer.cpp',
-  'Engine/engine/vulkanaid/src/createvksurface.cpp',
-  'Engine/engine/vulkanaid/src/findqueuefamilyindices.cpp',
-  'Engine/engine/vulkanaid/src/selectvkphysicaldevice.cpp',
-  'Engine/engine/vulkanaid/src/createvklogicaldevice.cpp',
-  'Engine/engine/vulkanaid/src/setupvkswapchain.cpp',
-  'Engine/engine/render_engine/src/render_engine.cpp',
-  'Engine/engine/render_engine/src/graphics_pipeline.cpp',
-  'Engine/engine/render_engine/src/render_pass.cpp',
-  'Engine/engine/render_engine/src/create_framebuffers.cpp',
-  'Engine/engine/render_engine/src/create_commandpoll.cpp',
-  'Engine/engine/render_engine/src/create_commandbuffer.cpp',
-  'Engine/engine/render_engine/src/draw_frame.cpp',
-  'Engine/engine/render_engine/src/create_sync_objects.cpp',
-  'Engine/engine/render_engine/src/swapchain_recreation.cpp',
-  'Engine/engine/render_engine/src/create_vertex_buffer.cpp',
-  'Engine/engine/render_engine/src/create_index_buffer.cpp',
-  'Engine/engine/render_engine/src/WINDOW.cpp',
-  'Engine/engine/render_engine/src/RENDER_ENGINE2.cpp',
-  'Engine/engine/render_engine/src/VULKAN_INSTANCE.cpp',
-  'Engine/engine/render_engine/src/VULKAN_PHYSICAL_DEVICE.cpp',
-  'Engine/engine/render_engine/src/VULKAN_QUEUE.cpp',
-]
+
+# Run Python script and get sources
+sources_cmd = run_command(
+  py3,
+  [meson.project_source_root() / 'build_helper/harvest_sources.py']
+)
+sources = sources_cmd.stdout().strip().split(' ')
 
 # Executable
 exe = executable(
