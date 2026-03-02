@@ -16,8 +16,8 @@ from pathlib import Path
 
 root_dir = Path(".")
 
-RENDER_ENGINE_SOURCE_DIR = root_dir / "Engine" / "engine" / "render_engine" / "src"
-VULKANAID_SOURCE_DIR = root_dir / "Engine" / "engine" / "vulkanaid" / "src"
+RENDER_ENGINE_SOURCE_DIR = root_dir / "Engine" / "render_engine" / "src"
+VULKANAID_SOURCE_DIR = root_dir / "Engine"  / "vulkanaid" / "src"
 APP_SOURCE_DIR = root_dir / "src"
 
 # List all .cpp files in each source folder

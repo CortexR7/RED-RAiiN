@@ -14,8 +14,8 @@ project(
 incdir = include_directories(
   'Dependencies/include',
   'Engine/tools',
-  'Engine/engine/vulkanaid/include',
-  'Engine/engine/render_engine/include',
+  'Engine/vulkanaid/include',
+  'Engine/render_engine/include',
 )
 
 # find python3 program
