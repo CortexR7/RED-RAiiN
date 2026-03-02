@@ -17,16 +17,18 @@ from pathlib import Path
 root_dir = Path(".")
 
 RENDER_ENGINE_SOURCE_DIR = root_dir / "Engine" / "render_engine" / "src"
+SHADER_COMPILER_SOURCE_DIR = root_dir / "Engine" / "shader_compiler" / "src"
 VULKANAID_SOURCE_DIR = root_dir / "Engine"  / "vulkanaid" / "src"
 APP_SOURCE_DIR = root_dir / "src"
 
 # List all .cpp files in each source folder
 RENDER_ENGINE_SOURCES = list(RENDER_ENGINE_SOURCE_DIR.glob("*.cpp"))
+SHADER_COMPILER_SOURCE = list(SHADER_COMPILER_SOURCE_DIR.glob("*.cpp"))
 VULKANAID_SOURCES = list(VULKANAID_SOURCE_DIR.glob("*.cpp"))
 APP_SOURCES = list(APP_SOURCE_DIR.glob("*.cpp"))
 
 # Creating a finalized list of all sources
-ALL_SOURCES = RENDER_ENGINE_SOURCES + VULKANAID_SOURCES + APP_SOURCES
+ALL_SOURCES = RENDER_ENGINE_SOURCES + SHADER_COMPILER_SOURCE + VULKANAID_SOURCES + APP_SOURCES
 ALL_SOURCES_STR = [str(source) for source in ALL_SOURCES]
 
 # Print as space-separated string

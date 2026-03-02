@@ -16,6 +16,7 @@ incdir = include_directories(
   'Engine/tools',
   'Engine/vulkanaid/include',
   'Engine/render_engine/include',
+  'Engine/shader_compiler/include',
 )
 
 # find python3 program
