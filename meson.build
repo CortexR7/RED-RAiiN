@@ -2,11 +2,12 @@ project(
   'mesontest',
   'cpp',
   meson_version: '>= 1.3.0',
-  version: '0.1',
+  version: '0.0.0',
   default_options: [
     'cpp_std=c++20',
-    'buildtype=release',
+    'buildtype=debug',
     'warning_level=3',
+    'optimization=plain',
   ],
 )
 
@@ -27,12 +28,12 @@ compiler_args = []
 cpp = meson.get_compiler('cpp')
 
 if cpp.get_id() == 'msvc'
-  compiler_args += ['/Oi', '/Ot', '/wd4100', '/wd4189']
+  compiler_args += ['/Oi', '/wd4100', '/wd4189']
 elif cpp.get_id() == 'clang'
-  compiler_args += ['-march=native', '-O3', '-Wno-unused-parameter']
+  compiler_args += ['-march=native', '-Wno-unused-parameter']
 else
   # GCC
-  compiler_args += ['-march=native', '-O3', '-Wno-unused-parameter']
+  compiler_args += ['-march=native', '-Wno-unused-parameter']
 endif
 
 add_project_arguments(compiler_args, language: 'cpp')
