@@ -56,11 +56,11 @@ else
 endif
 dependencies = [glfw_dep, vulkan_dep]
 
-
 # Run Python script and get sources
 sources_cmd = run_command(
   py3,
-  [meson.project_source_root() / 'build_helper/harvest_sources.py']
+  [meson.project_source_root() / 'build_helper/harvest_sources.py'],
+  check: true,
 )
 sources = sources_cmd.stdout().strip().split(' ')
 
