@@ -1,17 +1,3 @@
-
-#
-#  This is a python script that shall get executed by meson
-#  For more information, look ate the meson.build file
-#
-#
-#  Copyright (c) 2026 CortexR7
-#  
-#  This build.py file is part of the build system
-#  for the RED-RAiiN project. And any modification 
-#  may result in build failure. Please refer to the meson.build
-#
-
-
 #!/usr/bin/env python3
 import sys
 import shutil
@@ -34,7 +20,6 @@ def main():
         sys.exit(0)
 
     # Where to copy: next to the executable
-    # For simplicity, assume executable is at build_dir/RED-RAiiN
     exe_dir = build_dir
     if not exe_dir.exists():
         exe_dir.mkdir(parents=True, exist_ok=True)
@@ -60,6 +45,32 @@ def main():
     stamp_file.touch()
     print(f"Runtime copy complete. Stamp: {stamp_file}")
 
+    # Set up launcher script
+    setupLauncher(exe_dir, exe_name="RED-RAiiN")
+
+
+def setupLauncher(exe_dir: Path, exe_name: str):
+    """
+    Generates a shell script next to the executable that sets LD_LIBRARY_PATH
+    to the build folder where all the .so files were copied.
+    """
+    launcher_path = exe_dir / f"launch_{exe_name}.sh"
+    build_dir_str = str(exe_dir.resolve())  # absolute path of the build dir
+
+    script_content = f"""#!/usr/bin/env bash
+# Auto-generated launcher for {exe_name}
+
+# Use the build folder as LD_LIBRARY_PATH so the exe finds all .so files
+export LD_LIBRARY_PATH="{build_dir_str}:$LD_LIBRARY_PATH"
+exec "{build_dir_str}/{exe_name}" "$@"
+"""
+
+    try:
+        launcher_path.write_text(script_content)
+        launcher_path.chmod(0o755)  # make it executable
+        print(f"Launcher script created: {launcher_path}")
+    except Exception as e:
+        print(f"Warning: Failed to create launcher script: {e}")
+
 if __name__ == "__main__":
     main()
-
