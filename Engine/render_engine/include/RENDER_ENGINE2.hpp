@@ -20,16 +20,17 @@
 
 class RENDER_ENGINE2{
     private:
+    void INIT_ENGINE();
+    void FREE_ENGINE();
 
     public:
     WINDOW MAIN_WINDOW;
     VULKAN_INSTANCE VK_INSTANCE;
     VULKAN_PHYSICAL_DEVICE VKP_DEVICE;
     
-
-    void INIT_ENGINE();
+    
     void RUN_ENGINE();
-    void FREE_ENGINE();
+    
 
     RENDER_ENGINE2();
     ~RENDER_ENGINE2();
