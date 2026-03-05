@@ -1037,8 +1037,6 @@ typedef uint32_t SlangSizeT;
         AllowGLSL,
         EnableExperimentalPasses,
         BindlessSpaceIndex, // int
-        SPIRVResourceHeapStride,
-        SPIRVSamplerHeapStride,
 
         // Internal
 

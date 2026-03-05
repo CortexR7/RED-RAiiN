@@ -2,6 +2,7 @@
 #include <RENDER_ENGINE2.hpp>
 #include <tools.hpp>
 #include <iostream>
+#include <SHADER_COMPILER.hpp>
 
 
 int main(){
@@ -16,8 +17,11 @@ int main(){
     }
     */
 
-    RENDER_ENGINE2 ENGINE;
-    ENGINE.RUN_ENGINE();
+    RENDER_ENGINE2 RENDER_ENGINE;
+    RENDER_ENGINE.RUN_ENGINE();
+    SLANG2SPIRV shaderCompiler;
+    shaderCompiler.createSoloSession();
+    
  
     return 0;
 }

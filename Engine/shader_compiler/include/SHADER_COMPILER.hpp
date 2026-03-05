@@ -9,6 +9,7 @@
 class SLANG2SPIRV{
     private:
     Slang::ComPtr<slang::IGlobalSession> globalSession;
+    Slang::ComPtr<slang::ISession> session;
 
     public:
     void createSoloSession();
