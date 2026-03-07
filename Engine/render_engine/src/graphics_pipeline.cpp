@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <Vertex.hpp>
+#include <SHADER_COMPILER.hpp>
 
 
 // At this part of the static function we have a set of static function 
@@ -46,12 +47,18 @@ static VkShaderModule createShaderModule(const std::vector<char>& shaderCode, Vk
 
 void RenderEngine::createGraphicsPipeline()
 {
-    auto vertShaderCode = ShaderLoader("../SPIR-V/vert.spv");  
+    // ################################################################################
+    // ###################### TESTING NEW SHADER COMPILER #############################
+    SLANG2SPIRV SHAD_COMPILER;
+    SHAD_COMPILER.GEN_VERTEX_SHADER();
+
+    auto vertShaderCode = SHAD_COMPILER.GET_SHADER_CODE_AS_CHAR_VECTOR();
     auto fragShaderCode = ShaderLoader("../SPIR-V/frag.spv"); 
 
     VkShaderModule vertShaderModule = createShaderModule(vertShaderCode, this->device);
     VkShaderModule fragShaderModule = createShaderModule(fragShaderCode, this->device);
-
+    // ################################################################################
+    // ############## TEST WAS SUCCESFULL CONSIDER REMOVING OLD STUFF AWAY ############
     
     // set shader stages
     // vertex shader stage

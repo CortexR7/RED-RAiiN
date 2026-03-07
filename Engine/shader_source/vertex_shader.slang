@@ -15,6 +15,7 @@ struct VSOutput
     float3 fragColor;
 };
 
+[shader("vertex")] // ADD THIS
 VSOutput main(VSInput input)
 {
     VSOutput output;
