@@ -1,5 +1,5 @@
-#ifndef SHADER_COMPILER
-#define SHADER_COMPILER
+#ifndef SHADER_COMPILER_HPP
+#define SHADER_COMPILER_HPP
 
 #include <vulkan/vulkan.h>
 #include <slang/slang.h>
