@@ -55,11 +55,11 @@ if host_machine.system() == 'windows'
     include_directories: incdir,
     link_args: [],  # Windows Slang linking handled separately
   )
-else
+elif cpp.get_id() == 'gcc'
   glfw_dep = dependency('glfw3', required: true, static: false)
   vulkan_dep = dependency('vulkan', required: true, static: false)
 
-  slang_lib_dir = meson.project_source_root() / 'Dependencies/lib/slang'
+  slang_lib_dir = meson.project_source_root() / 'Dependencies/lib/slang/lix/gcc'
   slang_dep = declare_dependency(
     include_directories: incdir,
     link_args: [
@@ -67,6 +67,30 @@ else
       '-lslang-rt',
       '-lslang-compiler',
       '-lgfx',
+      '-lcompiler-core',
+      '-lcore',
+      '-llz4',
+      '-lminiz',
+      '-lslang-cpp-parser',
+    ]
+  )
+elif cpp.get_id() == 'clang'
+  glfw_dep = dependency('glfw3', required: true, static: false)
+  vulkan_dep = dependency('vulkan', required: true, static: false)
+
+  slang_lib_dir = meson.project_source_root() / 'Dependencies/lib/slang/lix/clang'
+  slang_dep = declare_dependency(
+    include_directories: incdir,
+    link_args: [
+      '-L' + slang_lib_dir,
+      '-lslang-rt',
+      '-lslang-compiler',
+      '-lgfx',
+      '-lcompiler-core',
+      '-lcore',
+      '-llz4',
+      '-lminiz',
+      '-lslang-cpp-parser',
     ]
   )
 endif
@@ -83,24 +107,6 @@ sources_cmd = run_command(
 )
 sources = sources_cmd.stdout().strip().split(' ')
 
-# -------------------------
-# Runtime copy target (independent)
-# -------------------------
-# Will print a warning on failure but not stop the build
-custom_target(
-  'prepare_runtime_libs',
-  output: 'runtime_stamp.txt',
-  input: [],
-  command: [
-    py3,
-    meson.project_source_root() / 'build_helper/place_dynamic_libs_next_to_binary.py',
-    meson.current_build_dir()
-  ],
-  capture: true,
-  build_by_default: true,
-  # We ignore failures so it prints a warning but doesn't fail the build
-  # capture=True will capture stderr/stdout for inspection
-)
 
 # -------------------------
 # Executable target
