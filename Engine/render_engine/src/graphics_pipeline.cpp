@@ -51,9 +51,10 @@ void RenderEngine::createGraphicsPipeline()
     // ###################### TESTING NEW SHADER COMPILER #############################
     SLANG2SPIRV SHAD_COMPILER;
     SHAD_COMPILER.GEN_VERTEX_SHADER();
+    SHAD_COMPILER.GEN_FRAGMENT_SHADER();
 
-    auto vertShaderCode = SHAD_COMPILER.GET_SHADER_CODE_AS_CHAR_VECTOR();
-    auto fragShaderCode = ShaderLoader("../SPIR-V/frag.spv"); 
+    auto vertShaderCode = SHAD_COMPILER.GET_SHADER_CODE_AS_CHAR_VECTOR_VERTEX();
+    auto fragShaderCode = SHAD_COMPILER.GET_SHADER_CODE_AS_CHAR_VECTOR_FRAGMENT(); 
 
     VkShaderModule vertShaderModule = createShaderModule(vertShaderCode, this->device);
     VkShaderModule fragShaderModule = createShaderModule(fragShaderCode, this->device);

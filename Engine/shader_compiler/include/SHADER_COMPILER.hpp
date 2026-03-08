@@ -20,24 +20,40 @@ class SLANG2SPIRV{
     Slang::ComPtr<slang::IBlob> spirvCodeVertex;
     std::vector<char> VERTEX_SPIRV_CODE;
 
+    std::string fragment_shader_source;
+    Slang::ComPtr<slang::IModule> slangModuleFragment;
+    Slang::ComPtr<slang::IEntryPoint> entryPointFragment;
+    Slang::ComPtr<slang::IComponentType> composedFragmentProgram;
+    Slang::ComPtr<slang::IComponentType> linkedFragmentProgram;
+    Slang::ComPtr<slang::IBlob> spirvCodeFragment;
+    std::vector<char> FRAGMENT_SPIRV_CODE;
+
 
     public:
     void createSoloSession();
     
     void createModuleVertex();
     void createEntryPointsVertex();
-    void createComposedProgram();
+    void createComposedProgramVertex();
     void linkVertexProgram();
     void compileVertexShader();
     void GEN_VERTEX_SHADER();
 
 
+    void createModuleFragment();
+    void createEntryPointsFragment();
+    void createComposedProgramFragment();
+    void linkFragmentProgram();
+    void compileFragmentShader();
+    void GEN_FRAGMENT_SHADER();
 
-    std::vector<char> GET_SHADER_CODE_AS_CHAR_VECTOR();
+
+
+    std::vector<char> GET_SHADER_CODE_AS_CHAR_VECTOR_VERTEX();
+    std::vector<char> GET_SHADER_CODE_AS_CHAR_VECTOR_FRAGMENT();
 
     SLANG2SPIRV();
     ~SLANG2SPIRV();
 };
-
 
 #endif

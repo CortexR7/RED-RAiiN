@@ -99,7 +99,7 @@ void SLANG2SPIRV::createEntryPointsVertex()
     }
 }
 
-void SLANG2SPIRV::createComposedProgram()
+void SLANG2SPIRV::createComposedProgramVertex()
 {
     std::array<slang::IComponentType*, 2> componentTypes = 
     {
@@ -147,7 +147,7 @@ void SLANG2SPIRV::GEN_VERTEX_SHADER()
     std::cout << ">>> createEntryPointsVertex\n" << std::flush;
     createEntryPointsVertex();
     std::cout << ">>> createComposedProgram\n" << std::flush;
-    createComposedProgram();
+    createComposedProgramVertex();
     std::cout << ">>> linkVertexProgram\n" << std::flush;
     linkVertexProgram();
     std::cout << ">>> compileVertexShader\n" << std::flush;
@@ -155,7 +155,86 @@ void SLANG2SPIRV::GEN_VERTEX_SHADER()
     std::cout << ">>> DONE\n" << std::flush;
 }
 
-std::vector<char> SLANG2SPIRV::GET_SHADER_CODE_AS_CHAR_VECTOR()
+std::vector<char> SLANG2SPIRV::GET_SHADER_CODE_AS_CHAR_VECTOR_VERTEX()
 {
     return VERTEX_SPIRV_CODE;
+}
+
+
+
+void SLANG2SPIRV::createModuleFragment()
+{
+    Slang::ComPtr<slang::IBlob> diagnosticBlob;
+    const char* moduleName = "fragment";
+    const char* modulePath = "fragment_shader.slang";
+    this->fragment_shader_source = loadShaderFromFilePathAsString("fragment_shader.slang");
+
+    this->slangModuleFragment = this->session->loadModuleFromSourceString(moduleName, modulePath, fragment_shader_source.c_str(), diagnosticBlob.writeRef());
+    if(!this->slangModuleFragment)
+    {
+        std::runtime_error("FAILED TO COMPILE MINIMAL SHADERS !");
+    }
+}
+
+void SLANG2SPIRV::createEntryPointsFragment()
+{
+    Slang::ComPtr<slang::IBlob> diagnosticsBlob;
+    this->slangModuleFragment->findEntryPointByName("main", this->entryPointFragment.writeRef());
+
+    if (!this->entryPointFragment)
+    {
+        std::runtime_error("FAILED TO FETCH ENTRY POINT FROM THE VERTEX SHADER !");
+    }
+}
+
+void SLANG2SPIRV::createComposedProgramFragment()
+{
+    std::array<slang::IComponentType*, 2> componentTypes = 
+    {
+        this->slangModuleFragment,
+        this->entryPointFragment
+    };
+
+    SlangResult result = this->session->createCompositeComponentType(
+        componentTypes.data(),
+        componentTypes.size(),
+        composedFragmentProgram.writeRef(),
+        nullptr                 // leaving the blob out for now 
+    );
+}
+
+void SLANG2SPIRV::linkFragmentProgram()
+{
+    SlangResult result = this->composedFragmentProgram->link(
+        this->linkedFragmentProgram.writeRef(),
+        nullptr                 // leaving the blob out for now 
+    );
+}
+
+void SLANG2SPIRV::compileFragmentShader()
+{
+    SlangResult result = this->linkedFragmentProgram->getTargetCode(
+        0,
+        this->spirvCodeFragment.writeRef(),
+        nullptr
+    );
+    this->FRAGMENT_SPIRV_CODE = turnBlobIntoVector(this->spirvCodeFragment);
+}
+
+void SLANG2SPIRV::GEN_FRAGMENT_SHADER()
+{
+    createModuleFragment();
+    std::cout << ">>> createModuleFragment\n" << std::flush;
+    createEntryPointsFragment();
+    std::cout << ">>> createEntryPointsFrag\n" << std::flush;
+    createComposedProgramFragment();
+    std::cout << ">>> link frag\n" << std::flush;
+    linkFragmentProgram();
+    std::cout << ">>> shit\n" << std::flush;
+    compileFragmentShader();
+}
+
+std::vector<char> SLANG2SPIRV::GET_SHADER_CODE_AS_CHAR_VECTOR_FRAGMENT()
+{
+    return FRAGMENT_SPIRV_CODE;
 }

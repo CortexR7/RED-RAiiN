@@ -10,6 +10,7 @@ struct FSOutput
     float4 outColor;
 };
 
+[shader("fragment")]
 FSOutput main(FSInput input)
 {
     FSOutput output;
