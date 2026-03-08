@@ -1,7 +1,7 @@
 project(
   'mesontest',
   'cpp',
-  meson_version: '>= 1.3.0',
+  meson_version: '>= 1.4.0',
   version: '0.0.0',
   default_options: [
     'cpp_std=c++20',
@@ -58,7 +58,6 @@ if host_machine.system() == 'windows'
 elif cpp.get_id() == 'gcc'
   glfw_dep = dependency('glfw3', required: true, static: false)
   vulkan_dep = dependency('vulkan', required: true, static: false)
-
   slang_lib_dir = meson.project_source_root() / 'Dependencies/lib/slang/lix/gcc'
   slang_dep = declare_dependency(
     include_directories: incdir,
@@ -77,7 +76,6 @@ elif cpp.get_id() == 'gcc'
 elif cpp.get_id() == 'clang'
   glfw_dep = dependency('glfw3', required: true, static: false)
   vulkan_dep = dependency('vulkan', required: true, static: false)
-
   slang_lib_dir = meson.project_source_root() / 'Dependencies/lib/slang/lix/clang'
   slang_dep = declare_dependency(
     include_directories: incdir,
@@ -107,6 +105,19 @@ sources_cmd = run_command(
 )
 sources = sources_cmd.stdout().strip().split(' ')
 
+#################################
+######### COPY-SHADERS ##########
+copy_shaders = custom_target(
+  'copy_shaders',
+  output: 'shader_copy_stamp',
+  command: [
+    py3,
+    meson.project_source_root() / 'build_helper/add_shader_sources_to_builddir.py',
+    meson.current_build_dir(),
+  ],
+  build_by_default: true,
+)
+#################################
 
 # -------------------------
 # Executable target
