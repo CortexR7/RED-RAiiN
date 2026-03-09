@@ -18,7 +18,7 @@ import shutil
 import subprocess
 import platform
 
-subproject_slang_path = "../subprojects/slang"
+subproject_slang_path = "subprojects/slang"
 path = subproject_slang_path   # folder where CMakeLists.txt is
 cmd_win = [
     "cmake",
