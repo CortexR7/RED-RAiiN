@@ -1,3 +1,6 @@
 [submodule "Dependencies/submodules/slang"]
 	path = Dependencies/submodules/slang
 	url = https://github.com/shader-slang/slang.git
+[submodule "subprojects/slang"]
+	path = subprojects/slang
+	url = https://github.com/shader-slang/slang
