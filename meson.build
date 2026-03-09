@@ -44,47 +44,7 @@ py3 = find_program('python3', required: true)
 # Build Slang via CMake externally
 # (avoids Meson choking on SPIRV-Tools cyclic targets)
 # -------------------------
-cmake_prog = find_program('cmake', required: true)
 
-slang_source_dir = meson.project_source_root() / 'subprojects/slang'
-slang_build_dir  = meson.project_build_root()  / 'subprojects/slang-build'
-
-# Configure
-run_command(
-  cmake_prog,
-  '-S', slang_source_dir,
-  '-B', slang_build_dir,
-  '-DCMAKE_BUILD_TYPE=Release',
-  '-DSLANG_LIB_TYPE=STATIC',
-  '-DSLANG_ENABLE_TESTS=OFF',
-  '-DSLANG_ENABLE_EXAMPLES=OFF',
-  '-DSLANG_ENABLE_GFX=OFF',
-  '-DSLANG_ENABLE_SLANGD=OFF',
-  '-DSLANG_ENABLE_SLANGRT=OFF',
-  check: true,
-)
-
-# Build
-run_command(
-  cmake_prog,
-  '--build', slang_build_dir,
-  '--config', 'Release',
-  '--parallel',
-  check: true,
-)
-
-# -------------------------
-# Slang dependency
-# Point link_args at the .a files produced by the CMake build above.
-# Run: find <slang_build_dir> -name "*.a" to verify these paths on
-# your machine after a first manual cmake build.
-# -------------------------
-slang_dep = declare_dependency(
-  include_directories : include_directories('subprojects/slang/include'),
-  link_args           : [
-    slang_build_dir / 'libslang.a',
-  ],
-)
 
 # -------------------------
 # Platform dependencies (GLFW + Vulkan)
@@ -105,6 +65,22 @@ if host_machine.system() == 'windows'
 elif cpp.get_id() in ['gcc', 'clang']
   glfw_dep   = dependency('glfw3',  required: true, static: false)
   vulkan_dep = dependency('vulkan', required: true, static: false)
+
+  slang_lib_dir = meson.project_source_root() / 'Dependencies/lib/slang'
+  slang_dep = declare_dependency(
+    include_directories : incdir,
+    link_args: [
+      '-L' + slang_lib_dir,
+      '-lslang-rt',
+      '-lslang-compiler',
+      '-lgfx',
+      '-lcompiler-core',
+      '-lcore',
+      '-llz4',
+      '-lminiz',
+      '-lslang-cpp-parser',
+    ]
+  )
 endif
 
 all_deps = [glfw_dep, vulkan_dep, slang_dep]
