@@ -7,3 +7,4 @@
 include/** linguist-detectable=false
 lib/** linguist-detectable=false
 SPIR-V/** linguist-detectable=false
+subprojects/** linguist-detectable=false
