@@ -59,7 +59,7 @@ void RenderEngine::createGraphicsPipeline()
     VkShaderModule vertShaderModule = createShaderModule(vertShaderCode, this->device);
     VkShaderModule fragShaderModule = createShaderModule(fragShaderCode, this->device);
     // ################################################################################
-    // ############## TEST WAS SUCCESFULL CONSIDER REMOVING OLD STUFF AWAY ############
+    // ############ TEST WAS SUCCESFULL CONSIDER REMOVING OLD STUFF AWAY ##############
     
     // set shader stages
     // vertex shader stage
