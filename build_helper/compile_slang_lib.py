@@ -60,20 +60,20 @@ subprocess.run(cmd_build, cwd=path, check=True)
 
 # List of source files
 libs = [
-    '../subprojects/slang/build/Release/lib/libcompiler-core.a',
-    '../subprojects/slang/build/Release/lib/libcore.a',
-    '../subprojects/slang/build/Release/lib/libgfx.a',
-    '../subprojects/slang/build/Release/lib/libslang-compiler.a',
-    '../subprojects/slang/build/Release/lib/libslang-cpp-parser.a',
-    '../subprojects/slang/build/Release/lib/libslang-rt.a',
+    'subprojects/slang/build/Release/lib/libcompiler-core.a',
+    'subprojects/slang/build/Release/lib/libcore.a',
+    'subprojects/slang/build/Release/lib/libgfx.a',
+    'subprojects/slang/build/Release/lib/libslang-compiler.a',
+    'subprojects/slang/build/Release/lib/libslang-cpp-parser.a',
+    'subprojects/slang/build/Release/lib/libslang-rt.a',
 
     # external static libs
-    '../subprojects/slang/build/external/lz4/build/cmake/liblz4.a',
-    '../subprojects/slang/build/external/miniz/libminiz.a'
+    'subprojects/slang/build/external/lz4/build/cmake/liblz4.a',
+    'subprojects/slang/build/external/miniz/libminiz.a'
 ]
 
 # Destination directory
-dest = Path("../Dependencies/lib/slang")
+dest = Path("Dependencies/lib/slang")
 
 # Create destination folder if it doesn't exist
 dest.mkdir(parents=True, exist_ok=True)
