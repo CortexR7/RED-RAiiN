@@ -29,7 +29,6 @@ add_project_arguments(compiler_args, language: 'cpp')
 # -------------------------
 incdir = include_directories(
   'Dependencies/include',
-  'Engine/tools',
   'Engine/vulkanaid/include',
   'Engine/render_engine/include',
   'Engine/shader_compiler/include',
@@ -47,7 +46,7 @@ py3 = find_program('python3', required: true)
 
 
 # -------------------------
-# Platform dependencies (GLFW + Vulkan)
+# Platform dependencies (GLFW + Vulkan + Slang)
 # -------------------------
 if host_machine.system() == 'windows'
   glfw_dep = declare_dependency(
