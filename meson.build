@@ -32,6 +32,7 @@ incdir = include_directories(
   'Engine/vulkanaid/include',
   'Engine/render_engine/include',
   'Engine/shader_compiler/include',
+  'Engine/tools'
 )
 
 # -------------------------
@@ -83,6 +84,16 @@ elif cpp.get_id() in ['gcc', 'clang']
 endif
 
 all_deps = [glfw_dep, vulkan_dep, slang_dep]
+
+
+######## CHECK-DEPS #########
+run_command(
+  py3,
+  [meson.project_source_root() / 'build_helper/check_slang.py'],
+  capture: true,
+  check: true,
+)
+
 
 # -------------------------
 # Gather source files via Python
