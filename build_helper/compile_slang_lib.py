@@ -58,8 +58,8 @@ subprocess.run(cmd_build, cwd=path, check=True)
 
 # copy now the libs from subprojects to Dependencies
 
-# List of source files
-libs = [
+# List of libf files
+libs_lin = [
     'subprojects/slang/build/Release/lib/libcompiler-core.a',
     'subprojects/slang/build/Release/lib/libcore.a',
     'subprojects/slang/build/Release/lib/libgfx.a',
@@ -71,6 +71,22 @@ libs = [
     'subprojects/slang/build/external/lz4/build/cmake/liblz4.a',
     'subprojects/slang/build/external/miniz/libminiz.a'
 ]
+
+libs_win = [
+    "subprojects/slang/build/Release/lib/compiler-core.lib",
+    "subprojects/slang/build/Release/lib/core.lib",
+    "subprojects/slang/build/Release/lib/gfx.lib",
+    "subprojects/slang/build/Release/lib/slang-compiler.lib",
+    "subprojects/slang/build/Release/lib/slang-cpp-parser.lib",
+    "subprojects/slang/build/Release/lib/slang-rt.lib",
+    "subprojects/slang/build/external/lz4/build/cmake/lz4.lib",
+    "subprojects/slang/build/external/miniz/miniz.lib",
+]
+
+if platform.system() == "Windows":
+    libs = libs_win
+else:
+    libs = libs_lin
 
 # Destination directory
 dest = Path("Dependencies/lib/slang")

@@ -1,11 +1,13 @@
 #ifndef SHADER_COMPILER_HPP
 #define SHADER_COMPILER_HPP
 
+#define SLANG_STATIC
 #include <vulkan/vulkan.h>
 #include <slang/slang.h>
 #include <slang/slang-com-ptr.h>
 #include <slang/slang-com-helper.h>
 #include <vector>
+#include <string>
 
 class SLANG2SPIRV{
     private:

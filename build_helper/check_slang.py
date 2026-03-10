@@ -1,25 +1,8 @@
-
-#
-#  This is a python script that shall get executed by meson
-#  For more information, look ate the meson.build file
-#
-#
-#  Copyright (c) 2026 CortexR7
-#  
-#  This build.py file is part of the build system
-#  for the RED-RAiiN project. And any modification 
-#  may result in build failure. Please refer to the meson.build
-#
-
-
 import os
 import sys
+import platform
 
-# Directory to check
-lib_dir = "Dependencies/lib/slang"
-
-# List of required files
-required_libs = [
+required_libs_lin = [
     'libcompiler-core.a',
     'libcore.a',
     'libgfx.a',
@@ -30,17 +13,55 @@ required_libs = [
     'libminiz.a',
 ]
 
-missing = []
+required_libs_win = [
+    "slang-rt.lib",
+    "slang-compiler.lib",
+    "gfx.lib",
+    "compiler-core.lib",
+    "core.lib",
+    "lz4.lib",
+    "miniz.lib",
+    "slang-cpp-parser.lib",
+]
 
-for lib in required_libs:
-    lib_path = os.path.join(lib_dir, lib)
-    if not os.path.isfile(lib_path):
-        missing.append(lib_path)
 
-if missing:
-    print("Error: The following dependencies are missing:")
-    for path in missing:
-        print(f"  - {path}")
-    sys.exit(1)
+def check_dependencies():
+    script_dir = os.getcwd()
+    lib_dir = os.path.join(script_dir, "Dependencies", "lib", "slang")
 
-print("All dependencies are present ✅")
+    is_windows = platform.system() == "Windows"
+    required_libs = required_libs_win if is_windows else required_libs_lin
+    os_label = "Windows" if is_windows else "Linux"
+
+    print(f"OS detected : {os_label}")
+    print(f"Checking    : {lib_dir}\n")
+
+    if not os.path.isdir(lib_dir):
+        print(f"ERROR: Directory not found: {lib_dir}")
+        sys.exit(1)
+
+    missing = []
+    found = []
+
+    for lib in required_libs:
+        full_path = os.path.join(lib_dir, lib)
+        if os.path.isfile(full_path):
+            found.append(lib)
+            print(f"  [OK]      {lib}")
+        else:
+            missing.append(lib)
+            print(f"  [MISSING] {lib}")
+
+    print(f"\n{len(found)}/{len(required_libs)} libraries found.")
+
+    if missing:
+        print(f"\nMissing libraries:")
+        for lib in missing:
+            print(f"  - {lib}")
+        sys.exit(1)
+    else:
+        print("All required libraries are present.")
+
+
+if __name__ == "__main__":
+    check_dependencies()

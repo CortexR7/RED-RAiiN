@@ -18,7 +18,7 @@ cpp = meson.get_compiler('cpp')
 
 compiler_args = []
 if cpp.get_id() == 'msvc'
-  compiler_args += ['/Oi', '/wd4100', '/wd4189']
+  compiler_args += ['/Oi', '/wd4100', '/wd4189', '/MT']
 elif cpp.get_id() in ['clang', 'gcc']
   compiler_args += ['-march=native', '-Wno-unused-parameter']
 endif
@@ -62,6 +62,21 @@ if host_machine.system() == 'windows'
       meson.project_source_root() / 'Dependencies/lib/vulkan-1.lib',
     ],
   )
+  slang_lib_dir = meson.project_source_root() / 'Dependencies/lib/slang'
+  slang_dep = declare_dependency(
+    include_directories : incdir,
+    link_args: [
+      '/LIBPATH:' + slang_lib_dir,
+      'slang-rt.lib',
+      'slang-compiler.lib',
+      'gfx.lib',
+      'compiler-core.lib',
+      'core.lib',
+      'lz4.lib',
+      'miniz.lib',
+      'slang-cpp-parser.lib',
+    ]
+  )
 elif cpp.get_id() in ['gcc', 'clang']
   glfw_dep   = dependency('glfw3',  required: true, static: false)
   vulkan_dep = dependency('vulkan', required: true, static: false)
@@ -89,7 +104,7 @@ all_deps = [glfw_dep, vulkan_dep, slang_dep]
 ######## CHECK-DEPS #########
 run_command(
   py3,
-  [meson.project_source_root() / 'build_helper/check_slang.py'],
+  [meson.project_source_root() / 'build_helper' / 'check_slang.py'],
   capture: true,
   check: true,
 )
