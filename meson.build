@@ -7,7 +7,7 @@ project(
     'cpp_std=c++20',
     'buildtype=release',
     'warning_level=3',
-    'optimization=plain',
+    'optimization=3',
   ],
 )
 
