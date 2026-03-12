@@ -8,21 +8,13 @@
 int main(){
     LOG("Starting HATE Render Engine...");
 
-    
-    RenderEngine renderEngine;
-    renderEngine.run();
 
-    if(vulkanaid::DEBUG_MODE){
-        std::cin.get();
-    }
     
-
-    /*
     RENDER_ENGINE2 RENDER_ENGINE;
     RENDER_ENGINE.RUN_ENGINE();
     SLANG2SPIRV shaderCompiler;
     shaderCompiler.createSoloSession();
-    */
+    
  
     return 0;
 }

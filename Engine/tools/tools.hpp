@@ -9,11 +9,13 @@
 * functions that are rather OS specific might fall under a custom namespace that might be added later on.
 */
 
+
 namespace tools{
+    
     #ifdef LOGGER_ON
     #define LOG(msg) std::cout << "\033[34m" << "[LOGGER]: " << msg << "\033[0m" << std::endl;
     #else    
-    #define LOG(msg)
+    #define LOG(msg) std::cout << "\033[33m" << "[LOGGER]: " << "\033[0m" << msg << std::endl;
     #endif
 }
 
