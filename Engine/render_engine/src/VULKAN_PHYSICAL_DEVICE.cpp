@@ -33,3 +33,9 @@ void VULKAN_PHYSICAL_DEVICE::INIT_DEVICE(WINDOW& WIN, VULKAN_INSTANCE& INSTANCE)
         throw std::runtime_error("failed to find a suitable GPU!");
     }
 }
+
+
+VkPhysicalDevice VULKAN_PHYSICAL_DEVICE::GET_VK_HANDLE_TO_DEVICE()
+{
+    return this->PH_DEVICE;
+}

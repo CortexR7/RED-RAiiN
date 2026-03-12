@@ -16,6 +16,9 @@ struct QueueFamilyIndices {
 
 class QUEUE{
     public:
+    VkQueue PRESENT_QUEUE;
+    VkQueue GRAPHICS_QUEUE;
+    
     static QueueFamilyIndices findQueueFamilies(VkPhysicalDevice& device, VkSurfaceKHR& surface);
 };
 

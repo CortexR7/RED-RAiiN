@@ -20,6 +20,7 @@ class VULKAN_PHYSICAL_DEVICE{
 
     public:
     void INIT_DEVICE(WINDOW& WIN, VULKAN_INSTANCE& INSTANCE);
+    VkPhysicalDevice GET_VK_HANDLE_TO_DEVICE();
 };
 
 #endif
