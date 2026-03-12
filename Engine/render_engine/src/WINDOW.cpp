@@ -4,8 +4,7 @@
 
 
 
-// constants only for this TU
-const static std::string WINDOW_OBJ_STRING = "WINDOW_OBJECT: ";
+// constants only for this TU empty for now
 
 // setters and getters
 
