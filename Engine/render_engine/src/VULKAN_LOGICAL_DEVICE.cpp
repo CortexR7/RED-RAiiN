@@ -51,3 +51,8 @@ void VULKAN_LOGICAL_DEVICE::FREE()
 {
     vkDestroyDevice(this->DEVICE, nullptr);
 }
+
+VkDevice VULKAN_LOGICAL_DEVICE::GET_HANDLE_TO_VK_LOGICAL_DEVICE()
+{
+    return this->DEVICE;
+}

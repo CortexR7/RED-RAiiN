@@ -16,6 +16,8 @@ class VULKAN_LOGICAL_DEVICE{
     public:
     void INIT(VULKAN_PHYSICAL_DEVICE PH_DEVICE, WINDOW WIN, std::vector<const char*> deviceExtensions, const std::vector<const char*> validationLayers, bool foo);
     void FREE();
+
+    VkDevice GET_HANDLE_TO_VK_LOGICAL_DEVICE();
 };
 
 #endif

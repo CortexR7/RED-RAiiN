@@ -13,8 +13,6 @@ int main(){
     
     RENDER_ENGINE2 RENDER_ENGINE;
     RENDER_ENGINE.RUN_ENGINE();
-    SLANG2SPIRV shaderCompiler;
-    shaderCompiler.createSoloSession();
     
  
     return 0;
