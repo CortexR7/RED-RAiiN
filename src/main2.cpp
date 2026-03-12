@@ -1,3 +1,4 @@
+#define LOGGER_ON
 #include <render_engine.hpp>
 #include <RENDER_ENGINE2.hpp>
 #include <tools.hpp>
