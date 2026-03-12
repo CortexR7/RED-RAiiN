@@ -7,7 +7,7 @@
 
 
 int main(){
-    LOG("Starting HATE Render Engine...");
+    LOG("Starting RED-RAiiN Engine...");
 
 
     
