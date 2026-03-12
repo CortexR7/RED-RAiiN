@@ -24,11 +24,15 @@ class RENDER_ENGINE2{
     private:
     void INIT_ENGINE();
     void FREE_ENGINE();
+
     std::vector<const char*> deviceExtensions = {
         VK_KHR_SWAPCHAIN_EXTENSION_NAME,
         VK_KHR_SHADER_DRAW_PARAMETERS_EXTENSION_NAME
     };
-    const std::vector<const char*> validationLayers = {"VK_LAYER_KHRONOS_validation"};
+
+    const std::vector<const char*> validationLayers = {
+        "VK_LAYER_KHRONOS_validation"
+    };
 
     public:
     WINDOW MAIN_WINDOW;
