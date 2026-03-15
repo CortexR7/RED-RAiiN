@@ -88,7 +88,7 @@ meson compile
 ### Step 5 — Run
 
 ```powershell
-./RED-RAiiN
+./RED-RAiiN                                  #or .\RED-RAiiN on windows
 ```
 
 That's it — the engine should now be running! 🎉
