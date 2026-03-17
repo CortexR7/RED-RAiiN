@@ -32,7 +32,8 @@ incdir = include_directories(
   'Engine/vulkanaid/include',
   'Engine/render_engine/include',
   'Engine/shader_compiler/include',
-  'Engine/tools'
+  'Engine/tools',
+  'Engine/ETL/include',
 )
 
 # -------------------------

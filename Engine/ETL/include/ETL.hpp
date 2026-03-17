@@ -1,0 +1,19 @@
+#ifndef ETL_HPP
+#define ETL_HPP
+
+/*
+*  Copyright (c) 2026 CortexR7
+*
+*  This header defines the ETL (Engine Template Library)
+*  This header can be included and will reimplemnent some usefull container from the STL
+*  for better control.
+*
+*/
+
+
+namespace ETL
+{
+    #include "impl/DynamicArray.hpp"
+};
+
+#endif
