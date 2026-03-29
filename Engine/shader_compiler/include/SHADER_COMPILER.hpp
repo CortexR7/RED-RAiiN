@@ -9,6 +9,29 @@
 #include <vector>
 #include <string>
 
+
+/*
+*  Copyright (c) 2026 CortexR7
+*
+*  This header defines the SLANG2SPIRV shader compiler.
+*  This shader compiler is still in heavy development.
+*  There are a lot of hardcoded values especially for the file pathes etc.
+*  
+*  Future versions of this shader compiler should implement a more dynamic appraoch
+*  for handling shader compilation.
+*  
+*
+*  Certain approaches can look like this:
+*
+*  - remove the hardcoded file paths
+*  - remove the identity added to the modules (currently it uses clear identeties but the compiled modules really are not tied to that)
+*  - dont use member variables for all different types of shaders as it will polute the object with "shaader storage variables".
+*    This object is supposed to only model the functionality of a shader compiler and not model a data/storage object.
+* 
+*/
+
+
+
 class SLANG2SPIRV{
     private:
     Slang::ComPtr<slang::IGlobalSession> globalSession;
