@@ -6,7 +6,7 @@ void RENDER_ENGINE2::INIT_ENGINE()
     VK_INSTANCE.INIT_INSTANCE();
     MAIN_WINDOW.INIT_WINDOW(this->VK_INSTANCE);
     VKP_DEVICE.INIT_DEVICE(this->MAIN_WINDOW, this->VK_INSTANCE);
-    VKL_DEVICE.INIT(this->VKP_DEVICE, MAIN_WINDOW, this->deviceExtensions, this->validationLayers, true);
+    VKL_DEVICE.INIT(this->VKP_DEVICE, MAIN_WINDOW, this->deviceExtensions, this->validationLayers, false); // ! WARNING ! need to figure out why thE "false" is wrong later 
     VK_SWAPCHAIN.INIT(MAIN_WINDOW, VKP_DEVICE, VKL_DEVICE);
 }
 
