@@ -10,6 +10,7 @@
 *
 */
 
+#include "impl/DEBUG_LOG.hpp"
 
 namespace ETL
 {
