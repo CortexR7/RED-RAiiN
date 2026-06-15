@@ -21,7 +21,7 @@ void VULKAN_LOGICAL_DEVICE::INIT(
     float queuePriority = 1.0f;
     queueCreateInfo.pQueuePriorities = &queuePriority;
 
-    // empoty device features for now
+    // empty device features for now
     VkPhysicalDeviceFeatures deviceFeatures{};
 
     VkDeviceCreateInfo createInfo{};
