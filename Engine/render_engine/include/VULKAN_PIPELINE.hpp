@@ -10,6 +10,7 @@
 
 class VULKAN_PIPELINE{
     private:
+    
     public:
 };
 
