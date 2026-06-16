@@ -15,6 +15,8 @@ void RENDER_ENGINE2::INIT_ENGINE()
     DEBUG_LOG("Vulkan logical device initialized!");
     VK_SWAPCHAIN.INIT(MAIN_WINDOW, VKP_DEVICE, VKL_DEVICE);
     DEBUG_LOG("Vulkan swapchain initialized!");
+    VK_PIPELINE.INIT(VKL_DEVICE, VK_SWAPCHAIN);
+    DEBUG_LOG("Vulkan pipeline initialized!");
 }
 
 void RENDER_ENGINE2::RUN_ENGINE()
@@ -24,6 +26,7 @@ void RENDER_ENGINE2::RUN_ENGINE()
 
 void RENDER_ENGINE2::FREE_ENGINE()
 {
+    VK_PIPELINE.FREE(VKL_DEVICE);
     VK_SWAPCHAIN.FREE();
     MAIN_WINDOW.FREE(VK_INSTANCE);
     VKL_DEVICE.FREE();

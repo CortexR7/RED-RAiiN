@@ -80,8 +80,18 @@ static VkExtent2D chooseSwapExtent(GLFWwindow*& window, const VkSurfaceCapabilit
     return actualExtent;
 }
 
+VkExtent2D VULKAN_SWAPCHAIN::GET_SWAPCHAIN_RESOLUTION()
+{
+    return this->SW_CHAIN_RESOLUTION;
+}
+
 void VULKAN_SWAPCHAIN::INIT(WINDOW WIN, VULKAN_PHYSICAL_DEVICE PH_DEVICE, VULKAN_LOGICAL_DEVICE LG_DEVICE)
 {
+    SW_CHAIN_RESOLUTION.width = static_cast<uint32_t>(WIN.getWidth());
+    SW_CHAIN_RESOLUTION.height = static_cast<uint32_t>(WIN.getHeight());
+
+
+
     this->LG_DEVICE = LG_DEVICE;
     SwapChainSupportDetails swapChainSupport = querySwapChainSupport(WIN, PH_DEVICE);
     GLFWwindow* win = WIN.getWindow();

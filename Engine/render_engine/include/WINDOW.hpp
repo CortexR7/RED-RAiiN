@@ -17,8 +17,8 @@ class WINDOW{
     private: 
     GLFWwindow* window;    
     VkSurfaceKHR surface;
-    uint32_t width = 600;
-    uint32_t height = 600;
+    uint16_t width = 600;
+    uint16_t height = 600;
 
     public:
     // Setters and Getters
@@ -30,7 +30,7 @@ class WINDOW{
 
     GLFWwindow* getWindow();
     VkSurfaceKHR& getSurface();
-    uint16_t getWIdth();
+    uint16_t getWidth();
     uint16_t getHeight();
 
 

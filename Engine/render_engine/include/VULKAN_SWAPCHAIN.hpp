@@ -27,8 +27,8 @@ class VULKAN_SWAPCHAIN{
     private:
     SwapChainSupportDetails SW_CHAIN_SUPPORT;
     VkSwapchainKHR SW_CHAIN;
-
     VULKAN_LOGICAL_DEVICE LG_DEVICE;
+    VkExtent2D SW_CHAIN_RESOLUTION;
 
 
     SwapChainSupportDetails querySwapChainSupport(WINDOW WIN, VULKAN_PHYSICAL_DEVICE PH_DEVICE);
@@ -36,6 +36,7 @@ class VULKAN_SWAPCHAIN{
 
 
     public:
+    VkExtent2D GET_SWAPCHAIN_RESOLUTION();
     std::vector<VkFramebuffer> SW_CHAIN_FRAMEBUFFERS;
     std::vector<VkImage> SW_CHAIN_IMAGES;
     std::vector<VkImageView> SW_CHAIN_IMAGE_VIEWS;

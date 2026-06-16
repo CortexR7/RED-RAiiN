@@ -2,9 +2,11 @@
 #define VULKAN_PIPELINE_HPP
 
 #include <vulkan/vulkan.h>
+#include <VULKAN_LOGICAL_DEVICE.hpp>
+#include <VULKAN_SWAPCHAIN.hpp>
 #include <SHADER_LIB.hpp>
 
-#define DEBUG_ON
+#define DEBUG_ON            // NOTE: comment this line out to disable debug logs in this file
 #include <ETL.hpp>
 
 /*
@@ -14,11 +16,15 @@
 *  handle the creation of the Pipeline and hold the ressources relative too it such as the shaders.
 */
 
+
 class VULKAN_PIPELINE{
     private:
     ETL::StaticArray<SHADER> SHADERS{2};
+    VkPipelineLayout PIPELINE_LAYOUT;
     
     public:
+    void INIT(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, VULKAN_SWAPCHAIN& SWAPCHAIN);
+    void FREE(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE);
 };
 
 #endif

@@ -41,7 +41,7 @@ GLFWwindow* WINDOW::getWindow()
 }
 
 uint16_t WINDOW::getHeight(){return this->height;}
-uint16_t WINDOW::getWIdth(){return this->width;}
+uint16_t WINDOW::getWidth(){return this->width;}
 
 
 // constructor and destructor
