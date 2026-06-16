@@ -1,6 +1,9 @@
 #ifndef ETL_HPP
 #define ETL_HPP
 
+#include <stdexcept>
+#include <iostream>
+
 /*
 *  Copyright (c) 2026 CortexR7
 *
@@ -15,6 +18,7 @@
 namespace ETL
 {
     #include "impl/DynamicArray.hpp"
+    #include "impl/StaticArray.hpp"
 };
 
 #endif

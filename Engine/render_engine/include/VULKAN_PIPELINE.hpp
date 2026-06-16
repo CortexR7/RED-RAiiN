@@ -1,6 +1,12 @@
 #ifndef VULKAN_PIPELINE_HPP
 #define VULKAN_PIPELINE_HPP
 
+#include <vulkan/vulkan.h>
+#include <SHADER_LIB.hpp>
+
+#define DEBUG_ON
+#include <ETL.hpp>
+
 /*
 *  Copyright (c) 2026 CortexR7
 *
@@ -10,6 +16,7 @@
 
 class VULKAN_PIPELINE{
     private:
+    ETL::StaticArray<SHADER> SHADERS{2};
     
     public:
 };
