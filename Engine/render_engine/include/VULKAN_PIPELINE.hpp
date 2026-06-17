@@ -6,7 +6,7 @@
 #include <VULKAN_SWAPCHAIN.hpp>
 #include <SHADER_LIB.hpp>
 
-#define DEBUG_ON            // NOTE: comment this line out to disable debug logs in this file
+#define DEBUG_ON            // NOTE: comment this line out to disable debug logs for "VULKAN_PIPELINE.cpp"
 #include <ETL.hpp>
 
 /*
