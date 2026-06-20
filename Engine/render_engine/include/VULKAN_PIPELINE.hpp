@@ -23,7 +23,12 @@ class VULKAN_PIPELINE{
     VkPipelineLayout PIPELINE_LAYOUT;
     VkPipeline GRAPHICS_PIPELINE;
 
-    void INIT_PIPELINE(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, VULKAN_SWAPCHAIN& SWAPCHAIN, VkShaderModule& vertexShaderModule, VkShaderModule& fragmentShaderModule);
+    void INIT_PIPELINE(
+        VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, 
+        VULKAN_SWAPCHAIN& SWAPCHAIN, 
+        VkShaderModule& vertexShaderModule, 
+        VkShaderModule& fragmentShaderModule
+    );
 
 
     public:
