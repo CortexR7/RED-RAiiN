@@ -21,9 +21,9 @@ class VULKAN_PIPELINE{
     private:
     ETL::StaticArray<SHADER> SHADERS{2};
     VkPipelineLayout PIPELINE_LAYOUT;
+    VkPipeline GRAPHICS_PIPELINE;
 
-    void INIT_PIPELINE_LAYOUT(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, VULKAN_SWAPCHAIN& SWAPCHAIN, VkShaderModule& vertexShaderModule, VkShaderModule& fragmentShaderModule);
-    void INIT_GRAPHICS_PIPELINE();
+    void INIT_PIPELINE(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, VULKAN_SWAPCHAIN& SWAPCHAIN, VkShaderModule& vertexShaderModule, VkShaderModule& fragmentShaderModule);
 
 
     public:

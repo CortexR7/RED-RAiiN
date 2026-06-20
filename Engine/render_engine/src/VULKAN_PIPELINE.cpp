@@ -169,7 +169,7 @@ static void POPULATE_VIEWPORT_STATE_CREATE_INFO(VkPipelineViewportStateCreateInf
 
 
 
-void VULKAN_PIPELINE::INIT_PIPELINE_LAYOUT(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, VULKAN_SWAPCHAIN& SWAPCHAIN, VkShaderModule& vertexShaderModule, VkShaderModule& fragmentShaderModule)
+void VULKAN_PIPELINE::INIT_PIPELINE(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, VULKAN_SWAPCHAIN& SWAPCHAIN, VkShaderModule& vertexShaderModule, VkShaderModule& fragmentShaderModule)
 {
     INIT_SHADERS_WITH_SLANG2SPIRV(SHADERS);
     DEBUG_LOG("SHADERS COMPILED SUCCESSFULLY !!!");
@@ -236,33 +236,49 @@ void VULKAN_PIPELINE::INIT_PIPELINE_LAYOUT(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE
     } else {
         DEBUG_LOG("PIPELINE LAYOUT CREATED SUCCESSFULLY !!!");
     }
-}
 
-void VULKAN_PIPELINE::INIT_GRAPHICS_PIPELINE()
-{
-    // NOTE: THIS FUNCTION IS NOT IMPLEMENTED YET BUT IT WILL HANDLE THE CREATION OF THE GRAPHICS PIPELINE
-    // AND ALL THE CONFIGURATIONS RELATIVE TO IT SUCH AS THE PIPELINE STAGES, THE FIXED FUNCTION STAGES CONFIGS, ETC ...
+
+
+    // GRAPHICS PIPELINE CREATION 
+    VkFormat swapChainImageFormat = SWAPCHAIN.GET_SWAPCHAIN_IMAGE_FORMAT();
+    VkPipelineRenderingCreateInfo pipelineRenderingInfo{};
+    pipelineRenderingInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO;
+    pipelineRenderingInfo.colorAttachmentCount = 1;
+    pipelineRenderingInfo.pColorAttachmentFormats = &swapChainImageFormat;
+    pipelineRenderingInfo.depthAttachmentFormat   = VK_FORMAT_UNDEFINED;
+    pipelineRenderingInfo.stencilAttachmentFormat = VK_FORMAT_UNDEFINED;
+
+
+    VkGraphicsPipelineCreateInfo pipelineInfo{};
+    pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+    pipelineInfo.pNext = &pipelineRenderingInfo; // NOTE: THIS STRUCTURE ADDS DYNAMIC RENDERING  INFO
+    pipelineInfo.stageCount = 2;
+    pipelineInfo.pStages = shaderStages;
+    pipelineInfo.pVertexInputState = &vertexInputInfo;
+    pipelineInfo.pInputAssemblyState = &inputAssembly;
+    pipelineInfo.pViewportState = &viewportState;
+    pipelineInfo.pRasterizationState = &rasterizer;
+    pipelineInfo.pMultisampleState = &multisampling;
+    pipelineInfo.pDepthStencilState = nullptr; // Optional
+    pipelineInfo.pColorBlendState = &colorBlending;
+    pipelineInfo.pDynamicState = &dynamicState;
+    pipelineInfo.layout = this->PIPELINE_LAYOUT;
+
+
+    if(vkCreateGraphicsPipelines(LOGICAL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &GRAPHICS_PIPELINE) != VK_SUCCESS)
+    {
+        DEBUG_LOG("FAILED TO CREATE GRAPHICS PIPELINE !!!");
+        throw std::runtime_error("failed to create graphics pipeline!");
+    } else {
+        DEBUG_LOG("GRAPHICS PIPELINE CREATED SUCCESSFULLY !!!");
+    }
 }
 
 void VULKAN_PIPELINE::INIT(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, VULKAN_SWAPCHAIN& SWAPCHAIN)
 {
     VkShaderModule vertexShaderModule;
     VkShaderModule fragmentShaderModule;
-    VULKAN_PIPELINE::INIT_PIPELINE_LAYOUT(LOGICAL_DEVICE, SWAPCHAIN, vertexShaderModule, fragmentShaderModule);
-
-
-    // NOTE: PIPLINE LAYOUT CREATION DONE NOW THE FOLLOWING CODE
-    // NOTE: REPRESENT THE GRAPHICS PIPELINE CREATION WHICH IS NOT DONE YET
-
-
-    VULKAN_PIPELINE::INIT_GRAPHICS_PIPELINE();
-    // vkCreateGraphicsPipelines(LOGICAL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), nullptr, 1, nullptr, nullptr, nullptr); 
-
-
-
-
-    
-    // NOTE: DESTROY THE SHADER MODULES SINCE THEY WONT BE NEEDED AFTER GRAPHICS PIPELINE CREATION
+    VULKAN_PIPELINE::INIT_PIPELINE(LOGICAL_DEVICE, SWAPCHAIN, vertexShaderModule, fragmentShaderModule);
 
     vkDestroyShaderModule(LOGICAL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), vertexShaderModule, nullptr);
     vkDestroyShaderModule(LOGICAL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), fragmentShaderModule, nullptr);
@@ -270,5 +286,6 @@ void VULKAN_PIPELINE::INIT(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, VULKAN_SWAPCHA
 
 void VULKAN_PIPELINE::FREE(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE)
 {
+    vkDestroyPipeline(LOGICAL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), GRAPHICS_PIPELINE, nullptr);
     vkDestroyPipelineLayout(LOGICAL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), PIPELINE_LAYOUT, nullptr);
 }

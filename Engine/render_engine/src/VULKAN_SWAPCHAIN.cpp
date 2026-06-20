@@ -85,6 +85,11 @@ VkExtent2D VULKAN_SWAPCHAIN::GET_SWAPCHAIN_RESOLUTION()
     return this->SW_CHAIN_RESOLUTION;
 }
 
+VkFormat VULKAN_SWAPCHAIN::GET_SWAPCHAIN_IMAGE_FORMAT()
+{
+    return this->SW_CHAIN_IMAGE_FORMAT;
+}
+
 void VULKAN_SWAPCHAIN::INIT(WINDOW WIN, VULKAN_PHYSICAL_DEVICE PH_DEVICE, VULKAN_LOGICAL_DEVICE LG_DEVICE)
 {
     this->LG_DEVICE = LG_DEVICE;
@@ -95,6 +100,7 @@ void VULKAN_SWAPCHAIN::INIT(WINDOW WIN, VULKAN_PHYSICAL_DEVICE PH_DEVICE, VULKAN
     VkPresentModeKHR presentMode = chooseSwapPresentMode(swapChainSupport.presentModes);
     VkExtent2D extent = chooseSwapExtent(win, swapChainSupport.capabilities);
     SW_CHAIN_RESOLUTION = extent;
+    SW_CHAIN_IMAGE_FORMAT = surfaceFormat.format;
 
     uint32_t imageCount = swapChainSupport.capabilities.minImageCount + 1;  // higher values here probably wont result in more images since the capabilities are usually only up to 3 for tripple buffering.
 

@@ -2,6 +2,13 @@
 #include <iostream>
 
 
+static VkPhysicalDeviceVulkan13Features getRequiredDeviceFeatures() {
+    VkPhysicalDeviceVulkan13Features features13{};
+    features13.sType           = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES;
+    features13.dynamicRendering = VK_TRUE; 
+    return features13;
+}
+
 void VULKAN_LOGICAL_DEVICE::INIT(
     VULKAN_PHYSICAL_DEVICE PH_DEVICE, 
     WINDOW WIN, 
@@ -21,14 +28,15 @@ void VULKAN_LOGICAL_DEVICE::INIT(
     queueCreateInfo.pQueuePriorities = &queuePriority;
     
 
-    // empty device features for now
-    VkPhysicalDeviceFeatures deviceFeatures{};
 
+    
+    VkPhysicalDeviceVulkan13Features features13 = getRequiredDeviceFeatures();
     VkDeviceCreateInfo createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
     createInfo.pQueueCreateInfos = &queueCreateInfo;
     createInfo.queueCreateInfoCount = 1;
-    createInfo.pEnabledFeatures = &deviceFeatures;
+    createInfo.pEnabledFeatures =nullptr; // NOTE: this is ignored when using VkPhysicalDeviceFeatures2 in pNext
+    createInfo.pNext = &features13;
     createInfo.enabledExtensionCount = static_cast<uint32_t>(deviceExtensions.size());
     createInfo.ppEnabledExtensionNames = deviceExtensions.data();
 
