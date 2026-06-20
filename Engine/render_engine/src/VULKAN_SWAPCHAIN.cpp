@@ -87,11 +87,6 @@ VkExtent2D VULKAN_SWAPCHAIN::GET_SWAPCHAIN_RESOLUTION()
 
 void VULKAN_SWAPCHAIN::INIT(WINDOW WIN, VULKAN_PHYSICAL_DEVICE PH_DEVICE, VULKAN_LOGICAL_DEVICE LG_DEVICE)
 {
-    SW_CHAIN_RESOLUTION.width = static_cast<uint32_t>(WIN.getWidth());
-    SW_CHAIN_RESOLUTION.height = static_cast<uint32_t>(WIN.getHeight());
-
-
-
     this->LG_DEVICE = LG_DEVICE;
     SwapChainSupportDetails swapChainSupport = querySwapChainSupport(WIN, PH_DEVICE);
     GLFWwindow* win = WIN.getWindow();
@@ -99,6 +94,7 @@ void VULKAN_SWAPCHAIN::INIT(WINDOW WIN, VULKAN_PHYSICAL_DEVICE PH_DEVICE, VULKAN
     VkSurfaceFormatKHR surfaceFormat = chooseSwapSurfaceFormat(swapChainSupport.formats);
     VkPresentModeKHR presentMode = chooseSwapPresentMode(swapChainSupport.presentModes);
     VkExtent2D extent = chooseSwapExtent(win, swapChainSupport.capabilities);
+    SW_CHAIN_RESOLUTION = extent;
 
     uint32_t imageCount = swapChainSupport.capabilities.minImageCount + 1;  // higher values here probably wont result in more images since the capabilities are usually only up to 3 for tripple buffering.
 
