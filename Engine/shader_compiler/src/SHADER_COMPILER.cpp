@@ -142,17 +142,17 @@ void SLANG2SPIRV::compileVertexShader()
 
 void SLANG2SPIRV::GEN_VERTEX_SHADER()
 {
-    std::cout << ">>> createModuleVertex\n" << std::flush;
+    DEBUG_LOG(">>> createModuleVertex");
     createModuleVertex();
-    std::cout << ">>> createEntryPointsVertex\n" << std::flush;
+    DEBUG_LOG(">>> createEntryPointsVertex");
     createEntryPointsVertex();
-    std::cout << ">>> createComposedProgram\n" << std::flush;
+    DEBUG_LOG(">>> createComposedProgram");
     createComposedProgramVertex();
-    std::cout << ">>> linkVertexProgram\n" << std::flush;
+    DEBUG_LOG(">>> linkVertexProgram");
     linkVertexProgram();
-    std::cout << ">>> compileVertexShader\n" << std::flush;
+    DEBUG_LOG(">>> compileVertexShader");
     compileVertexShader();
-    std::cout << ">>> DONE\n" << std::flush;
+    DEBUG_LOG(">>> DONE");
 }
 
 std::vector<char> SLANG2SPIRV::GET_SHADER_CODE_AS_CHAR_VECTOR_VERTEX()
@@ -224,14 +224,15 @@ void SLANG2SPIRV::compileFragmentShader()
 void SLANG2SPIRV::GEN_FRAGMENT_SHADER()
 {
     createModuleFragment();
-    std::cout << ">>> createModuleFragment\n" << std::flush;
+    DEBUG_LOG(">>> createModuleFrag");
     createEntryPointsFragment();
-    std::cout << ">>> createEntryPointsFrag\n" << std::flush;
+    DEBUG_LOG(">>> createEntryPointsFrag");
     createComposedProgramFragment();
-    std::cout << ">>> link frag\n" << std::flush;
+    DEBUG_LOG(">>> link frag");
     linkFragmentProgram();
-    std::cout << ">>> shit\n" << std::flush;
+    DEBUG_LOG(">>> compile frag");
     compileFragmentShader();
+    DEBUG_LOG(">>> DONE");
 }
 
 std::vector<char> SLANG2SPIRV::GET_SHADER_CODE_AS_CHAR_VECTOR_FRAGMENT()

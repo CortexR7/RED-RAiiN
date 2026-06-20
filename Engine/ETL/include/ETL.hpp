@@ -3,6 +3,7 @@
 
 #include <stdexcept>
 #include <iostream>
+#include <cmath>
 
 /*
 *  Copyright (c) 2026 CortexR7

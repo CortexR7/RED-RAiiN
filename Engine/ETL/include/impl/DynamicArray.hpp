@@ -1,7 +1,7 @@
 #ifndef DYNAMIC_ARRAY_HPP
 #define DYNAMIC_ARRAY_HPP
 
-#include <cmath>
+
 
 template <typename T>
 class DynamicArray

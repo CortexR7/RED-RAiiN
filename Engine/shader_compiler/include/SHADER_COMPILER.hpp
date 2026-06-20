@@ -9,6 +9,9 @@
 #include <vector>
 #include <string>
 
+#define DEBUG_ON            // NOTE: comment this line out to disable debug logs for "SHADER_COMPILER.cpp"
+#include <ETL.hpp>
+
 
 /*
 *  Copyright (c) 2026 CortexR7
