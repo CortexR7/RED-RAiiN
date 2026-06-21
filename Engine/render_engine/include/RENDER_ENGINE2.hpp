@@ -7,7 +7,10 @@
 #include <VULKAN_LOGICAL_DEVICE.hpp>
 #include <VULKAN_SWAPCHAIN.hpp>
 #include <VULKAN_PIPELINE.hpp>
+#include <VULKAN_CMD.hpp>
 
+#define DEBUG_ON
+#include <ETL.hpp>
 
 /*
 *  Copyright (c) 2026 CortexR7
@@ -42,6 +45,7 @@ class RENDER_ENGINE2{
     VULKAN_LOGICAL_DEVICE VKL_DEVICE;
     VULKAN_SWAPCHAIN VK_SWAPCHAIN;
     VULKAN_PIPELINE VK_PIPELINE;
+    VULKAN_CMD VK_CMD;
 
     
     

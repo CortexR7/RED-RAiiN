@@ -1,6 +1,4 @@
 #include <RENDER_ENGINE2.hpp>
-#define DEBUG_ON
-#include <ETL.hpp>
 
 
 void RENDER_ENGINE2::INIT_ENGINE()
@@ -17,6 +15,8 @@ void RENDER_ENGINE2::INIT_ENGINE()
     DEBUG_LOG("Vulkan swapchain initialized!");
     VK_PIPELINE.INIT(VKL_DEVICE, VK_SWAPCHAIN);
     DEBUG_LOG("Vulkan pipeline initialized!");
+    VK_CMD.INIT(VKP_DEVICE, MAIN_WINDOW, VKL_DEVICE);
+    DEBUG_LOG("Vulkan command pool and buffers initialized!");
 }
 
 void RENDER_ENGINE2::RUN_ENGINE()
@@ -26,6 +26,7 @@ void RENDER_ENGINE2::RUN_ENGINE()
 
 void RENDER_ENGINE2::FREE_ENGINE()
 {
+    VK_CMD.FREE(VKL_DEVICE);
     VK_PIPELINE.FREE(VKL_DEVICE);
     VK_SWAPCHAIN.FREE();
     MAIN_WINDOW.FREE(VK_INSTANCE);
