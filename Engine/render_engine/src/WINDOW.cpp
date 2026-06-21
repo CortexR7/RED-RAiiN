@@ -1,6 +1,7 @@
 #include <WINDOW.hpp>
 #include <iostream>
 #include <string>
+#include <RENDER_ENGINE2.hpp>
 
 
 
@@ -74,6 +75,15 @@ void WINDOW::WINDOW_LOOP()
     while (!glfwWindowShouldClose(this->window))
     {
         glfwPollEvents();
+    }
+}
+
+void WINDOW::WINDOW_LOOP(void (*DRAW_CALL)(void))
+{
+    while (!glfwWindowShouldClose(this->window))
+    {
+        glfwPollEvents();
+        DRAW_CALL();
     }
 }
 

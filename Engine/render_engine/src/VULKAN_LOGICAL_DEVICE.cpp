@@ -6,6 +6,7 @@ static VkPhysicalDeviceVulkan13Features getRequiredDeviceFeatures() {
     VkPhysicalDeviceVulkan13Features features13{};
     features13.sType           = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES;
     features13.dynamicRendering = VK_TRUE; 
+    features13.synchronization2 = VK_TRUE;
     return features13;
 }
 

@@ -19,6 +19,7 @@ class QUEUE{
     VkQueue PRESENT_QUEUE;
     VkQueue GRAPHICS_QUEUE;
     
+    
     static QueueFamilyIndices findQueueFamilies(VkPhysicalDevice& device, VkSurfaceKHR& surface);
 };
 

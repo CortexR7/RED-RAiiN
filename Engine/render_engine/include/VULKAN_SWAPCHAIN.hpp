@@ -26,7 +26,6 @@ struct SwapChainSupportDetails{
 class VULKAN_SWAPCHAIN{
     private:
     SwapChainSupportDetails SW_CHAIN_SUPPORT;
-    VkSwapchainKHR SW_CHAIN;
     VULKAN_LOGICAL_DEVICE LG_DEVICE;
     VkExtent2D SW_CHAIN_RESOLUTION;
     VkFormat SW_CHAIN_IMAGE_FORMAT;
@@ -37,6 +36,7 @@ class VULKAN_SWAPCHAIN{
 
 
     public:
+    VkSwapchainKHR SW_CHAIN;
     VkExtent2D GET_SWAPCHAIN_RESOLUTION();
     VkFormat GET_SWAPCHAIN_IMAGE_FORMAT();
     std::vector<VkFramebuffer> SW_CHAIN_FRAMEBUFFERS;

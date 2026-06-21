@@ -41,6 +41,7 @@ class WINDOW{
     // Member functions
     void INIT_WINDOW(VULKAN_INSTANCE& INSTANCE);
     void WINDOW_LOOP();
+    void WINDOW_LOOP(void (*FUNC_PTR)(void));
 
     void FREE(VULKAN_INSTANCE& INSTNACE);
 };

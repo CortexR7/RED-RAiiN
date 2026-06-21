@@ -8,6 +8,8 @@
 #include <VULKAN_SWAPCHAIN.hpp>
 #include <VULKAN_PIPELINE.hpp>
 #include <VULKAN_CMD.hpp>
+#include <VULKAN_QUEUE.hpp>
+
 
 #define DEBUG_ON
 #include <ETL.hpp>
@@ -38,6 +40,11 @@ class RENDER_ENGINE2{
         "VK_LAYER_KHRONOS_validation"
     };
 
+    VkSemaphore imageAvailableSemaphore;
+    VkSemaphore renderFinishedSemaphore;
+    VkFence inFlightFence;
+    void createSyncObjects();
+
     public:
     WINDOW MAIN_WINDOW;
     VULKAN_INSTANCE VK_INSTANCE;
@@ -46,10 +53,12 @@ class RENDER_ENGINE2{
     VULKAN_SWAPCHAIN VK_SWAPCHAIN;
     VULKAN_PIPELINE VK_PIPELINE;
     VULKAN_CMD VK_CMD;
+    QUEUE VK_QUEUE;
 
     
     
     void RUN_ENGINE();
+    void DRAW_FRAME(void);
     
 
     RENDER_ENGINE2();
