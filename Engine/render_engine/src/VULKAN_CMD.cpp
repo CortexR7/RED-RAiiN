@@ -11,7 +11,7 @@ void VULKAN_CMD::INIT(VULKAN_PHYSICAL_DEVICE& PH_DEVICE, WINDOW& WIN, VULKAN_LOG
     poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
     poolInfo.queueFamilyIndex = queueFamilyIndices.graphicsFamily.value();
 
-    if(vkCreateCommandPool(LG_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), &poolInfo, nullptr, &CMD_POOL) != VK_SUCCESS) {
+    if(vkCreateCommandPool(LG_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), &poolInfo, nullptr, &CMD_POOL_GRAPHICS) != VK_SUCCESS) {
         DEBUG_LOG("FAILED TO CREATE COMMAND POOL !!!");
         throw std::runtime_error("failed to create command pool!");
     } else {
@@ -21,5 +21,5 @@ void VULKAN_CMD::INIT(VULKAN_PHYSICAL_DEVICE& PH_DEVICE, WINDOW& WIN, VULKAN_LOG
 
 void VULKAN_CMD::FREE(VULKAN_LOGICAL_DEVICE& LG_DEVICE)
 {
-    vkDestroyCommandPool(LG_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), this->CMD_POOL, nullptr);
+    vkDestroyCommandPool(LG_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), this->CMD_POOL_GRAPHICS, nullptr);
 }   
