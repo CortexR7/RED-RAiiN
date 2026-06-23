@@ -13,7 +13,7 @@ class DynamicArray
     float growthFactor = 1.5;       // This is the growthFactor by how much the Array size incrementation will be multiplied with (must be a pos value) 
     T* Arr;                         // This is the Array pointer
     size_t elementCount;            // This is the ElementCount 
-    size_t elementCountCapacity;    // This is the ElementCountCapacity it tells how much Memory is actually allocated that can be used to store how many Elements
+    size_t elementCountCapacity;    // This is the ElementCountCapacity it tells how much Memory is actually allocated that can be used to store "X" amount of Elements
 
     size_t getActualSize(size_t size, float grwothFactor)
     {
@@ -29,7 +29,7 @@ class DynamicArray
         }
     }
 
-    void safetyScale(float& scale)
+    void safetyScale(float& scale)  // NOTE: in order to avoid buggs that would occur at smaller scales if an invalid scale is getting passed it will be set to 1.0f
     {
         if(scale < 1.0f)
         {
