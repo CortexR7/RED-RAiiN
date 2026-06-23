@@ -7,8 +7,8 @@
 
 class VULKAN_SYNC{
     public:
-    ETL::DynamicArray<VkSemaphore> SEMAPHORES{1, 1.0f};
-    ETL::DynamicArray<VkFence> FENCES{1, 1.0f};
+    ETL::DYNAMIC_ARRAY<VkSemaphore> SEMAPHORES{1, 1.0f};
+    ETL::DYNAMIC_ARRAY<VkFence> FENCES{1, 1.0f};
     VULKAN_SYNC();
 };
 

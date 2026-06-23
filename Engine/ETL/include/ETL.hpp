@@ -18,7 +18,7 @@
 
 namespace ETL
 {
-    #include "impl/DynamicArray.hpp"
+    #include "impl/DYNAMIC_ARRAY.hpp"
     #include "impl/StaticArray.hpp"
 };
 
