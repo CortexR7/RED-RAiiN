@@ -8,7 +8,8 @@
 #include <ETL.hpp>
 
 
-int main(){
+int main()
+{
     DEBUG_LOG("Starting RED-RAiiN Engine...");
     
     RENDER_ENGINE2 RENDER_ENGINE;

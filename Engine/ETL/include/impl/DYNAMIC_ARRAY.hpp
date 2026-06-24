@@ -78,6 +78,7 @@ class DYNAMIC_ARRAY
         }
     }
 
+    // NOTE: ASIGN OPERATOR
     DYNAMIC_ARRAY<T>& operator=(DYNAMIC_ARRAY<T>& OTHER)
     {
         if(this == &OTHER) return *this;
@@ -105,6 +106,14 @@ class DYNAMIC_ARRAY
 
             return *this;
         }
+    }
+
+
+    // NOTE: COPY CONSTRCUTOR
+    DYNAMIC_ARRAY(DYNAMIC_ARRAY<T>& OTHER) : 
+    DYNAMIC_ARRAY()
+    {
+        *this = OTHER;
     }
 };
 
