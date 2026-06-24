@@ -1,7 +1,7 @@
 #include <VULKAN_CMD.hpp>
 
 
-void VULKAN_CMD::INIT(VULKAN_PHYSICAL_DEVICE& PH_DEVICE, WINDOW& WIN, VULKAN_LOGICAL_DEVICE& LG_DEVICE)
+void VULKAN_CMD::INIT(VULKAN_PHYSICAL_DEVICE& PH_DEVICE, WINDOW& WIN, VULKAN_LOGICAL_DEVICE& LG_DEVICE, uint8_t FRAMES_IN_FLIGHT)
 {
     VkPhysicalDevice vkPhysicalDevice = PH_DEVICE.GET_VK_HANDLE_TO_DEVICE();
     QueueFamilyIndices queueFamilyIndices = QUEUE::findQueueFamilies(vkPhysicalDevice, WIN.getSurface());
@@ -18,18 +18,21 @@ void VULKAN_CMD::INIT(VULKAN_PHYSICAL_DEVICE& PH_DEVICE, WINDOW& WIN, VULKAN_LOG
         DEBUG_LOG("COMMAND POOL CREATED SUCCESSFULLY !!!");
     }
 
-
+    this->CMD_BUFFERS_GRAPHICS.RE_SIZE(FRAMES_IN_FLIGHT);
 
     VkCommandBufferAllocateInfo allocInfo{};
     allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
     allocInfo.commandPool = CMD_POOL_GRAPHICS;
     allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-    allocInfo.commandBufferCount = 1;
+    allocInfo.commandBufferCount = (uint32_t)this->CMD_BUFFERS_GRAPHICS.SIZE();
 
-    this->CMD_BUFFERS_GRAPHICS.resize(1);
 
-    if (vkAllocateCommandBuffers(LG_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), &allocInfo, &CMD_BUFFERS_GRAPHICS[0]) != VK_SUCCESS) {
+    
+    if (vkAllocateCommandBuffers(LG_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), &allocInfo, CMD_BUFFERS_GRAPHICS.DATA()) != VK_SUCCESS) {
+        DEBUG_LOG("FAILED TO ALLOCATE CMD_BUFFERS !!!");
         throw std::runtime_error("failed to allocate command buffers!");
+    } else {
+        DEBUG_LOG("SUCCESFULLY ALLOCATED CMD_BUFFERS !");
     }
 }
 

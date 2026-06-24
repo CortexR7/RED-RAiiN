@@ -7,6 +7,9 @@
 #include <WINDOW.hpp>
 #include <VULKAN_LOGICAL_DEVICE.hpp>
 
+#define DEBUG_ON
+#include <ETL.hpp>
+
 // This is needed since max and min are macros that comes with windows.h
 // These override the std::max and std::min functions from <algorithm>
 // and then cause compilation errors
@@ -22,6 +25,9 @@ struct SwapChainSupportDetails{
     std::vector<VkPresentModeKHR> presentModes;
 };
 
+struct SW_CHAIN_IMAGE_AVAILABLE_SEMAPHORES{
+    ETL::DYNAMIC_ARRAY<VkSemaphore> SEMAPHORES{1, 1.0f};
+};
 
 class VULKAN_SWAPCHAIN{
     private:
@@ -42,6 +48,7 @@ class VULKAN_SWAPCHAIN{
     std::vector<VkFramebuffer> SW_CHAIN_FRAMEBUFFERS;
     std::vector<VkImage> SW_CHAIN_IMAGES;
     std::vector<VkImageView> SW_CHAIN_IMAGE_VIEWS;
+    uint32_t SW_IMAGE_COUNT;
 
 
     void INIT(WINDOW WIN, VULKAN_PHYSICAL_DEVICE PH_DEVICE, VULKAN_LOGICAL_DEVICE LG_DEVICE);

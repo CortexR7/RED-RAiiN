@@ -9,6 +9,7 @@
 #include <VULKAN_PIPELINE.hpp>
 #include <VULKAN_CMD.hpp>
 #include <VULKAN_QUEUE.hpp>
+#include <VULKAN_SYNC.hpp>
 
 
 #define DEBUG_ON
@@ -39,11 +40,7 @@ class RENDER_ENGINE2{
     const std::vector<const char*> validationLayers = {
         "VK_LAYER_KHRONOS_validation"
     };
-
-    VkSemaphore imageAvailableSemaphore;
-    VkSemaphore renderFinishedSemaphore;
-    VkFence inFlightFence;
-    void createSyncObjects();
+    
 
     public:
     WINDOW MAIN_WINDOW;
@@ -54,6 +51,9 @@ class RENDER_ENGINE2{
     VULKAN_PIPELINE VK_PIPELINE;
     VULKAN_CMD VK_CMD;
     QUEUE VK_QUEUE;
+    VULKAN_SYNC VK_SYNC;
+    uint8_t FRAMES_IN_FLIGHT = 2;
+    uint8_t CURRENT_FRAME = 0;
 
     
     

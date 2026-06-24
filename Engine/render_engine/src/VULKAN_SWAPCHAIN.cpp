@@ -176,6 +176,8 @@ void VULKAN_SWAPCHAIN::INIT(WINDOW WIN, VULKAN_PHYSICAL_DEVICE PH_DEVICE, VULKAN
             throw std::runtime_error("failed to create image views!");
         }
     }
+
+    this->SW_IMAGE_COUNT = this->SW_CHAIN_IMAGES.size();
 }
 
 void VULKAN_SWAPCHAIN::FREE()

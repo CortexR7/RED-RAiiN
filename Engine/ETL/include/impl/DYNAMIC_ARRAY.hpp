@@ -115,6 +115,10 @@ class DYNAMIC_ARRAY
     {
         *this = OTHER;
     }
+
+    // NOTE: ITERATORS
+    T* begin(){ return ARR; }
+    T* end(){ return ARR + ELEMENT_COUNT; }
 };
 
 #endif
