@@ -28,66 +28,6 @@ void RENDER_ENGINE2::RUN_ENGINE()
         DRAW_FRAME();
     }
 }
-/*
-void RENDER_ENGINE2::DRAW_FRAME(void)
-{
-    vkWaitForFences(VKL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), 1, &VK_SYNC.FENCES.DATA()[CURRENT_FRAME], VK_TRUE, UINT64_MAX);
-    vkResetFences(VKL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), 1, &VK_SYNC.FENCES.DATA()[CURRENT_FRAME]);
-    
-    uint32_t imageIndex;
-
-    vkAcquireNextImageKHR(
-        VKL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), 
-        VK_SWAPCHAIN.SW_CHAIN, 
-        UINT64_MAX, 
-        VK_SYNC.SEMAPHORES_IMAGE_AVAILABLE.DATA()[CURRENT_FRAME], 
-        VK_NULL_HANDLE, 
-        &imageIndex
-    );
-
-    VK_CMD.RECORD_CMD_BUFFER_GRAPHICS(
-        this->VK_CMD.CMD_BUFFERS_GRAPHICS.DATA()[CURRENT_FRAME], 
-        imageIndex, 
-        this->VK_SWAPCHAIN, 
-        this->VK_PIPELINE
-    );
-
-
-    VkSubmitInfo submitInfo{};
-    VkSemaphore waitSemaphores[] = {VK_SYNC.SEMAPHORES_IMAGE_AVAILABLE.DATA()[CURRENT_FRAME]};
-    VkSemaphore signalSemaphores[] = {VK_SYNC.SEMAPHORES_RENDER_FINISHED.DATA()[CURRENT_FRAME]};
-    VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
-
-    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-    submitInfo.waitSemaphoreCount = 1;
-    submitInfo.pWaitSemaphores = waitSemaphores;
-    submitInfo.pWaitDstStageMask = waitStages;
-    submitInfo.commandBufferCount = 1;
-    submitInfo.pCommandBuffers = &VK_CMD.CMD_BUFFERS_GRAPHICS.DATA()[CURRENT_FRAME];
-    submitInfo.signalSemaphoreCount = 1;
-    submitInfo.pSignalSemaphores = signalSemaphores;
-
-    if (vkQueueSubmit(VKL_DEVICE.VK_QUEUE.GRAPHICS_QUEUE, 1, &submitInfo, VK_SYNC.FENCES.DATA()[CURRENT_FRAME]) != VK_SUCCESS) {
-        DEBUG_LOG("FAILED TO DRAW CMD BUFFER !!!!!");
-        throw std::runtime_error("failed to submit draw command buffer!");
-    }
-
-
-    VkSwapchainKHR swapChains[] = {VK_SWAPCHAIN.SW_CHAIN};
-    VkPresentInfoKHR presentInfo{};
-
-    presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
-    presentInfo.waitSemaphoreCount = 1;
-    presentInfo.pWaitSemaphores = signalSemaphores;
-    presentInfo.swapchainCount = 1;
-    presentInfo.pSwapchains = swapChains;
-    presentInfo.pImageIndices = &imageIndex;
-
-    vkQueuePresentKHR(VKL_DEVICE.VK_QUEUE.PRESENT_QUEUE, &presentInfo);
-
-    // this->CURRENT_FRAME = (this->CURRENT_FRAME + 1) % this->FRAMES_IN_FLIGHT;
-}
-*/
 
 void RENDER_ENGINE2::DRAW_FRAME(void)
 {
