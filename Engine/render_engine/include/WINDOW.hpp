@@ -17,7 +17,7 @@ class WINDOW{
     private: 
     GLFWwindow* window;    
     VkSurfaceKHR surface;
-    uint16_t width = 800;
+    uint16_t width = 870;
     uint16_t height = 730;
 
     public:
