@@ -2,5 +2,5 @@
 
 SHADER::SHADER()
 {
-    this->SHADER_TYPE = NO_SHADER;
+    this->SHADER_OF_TYPE = NO_SHADER;
 }
