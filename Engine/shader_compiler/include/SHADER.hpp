@@ -16,7 +16,7 @@ class SHADER{
     SHADER();
 
     std::vector<char> SPIRV_SHADER_CODE;
-    SHADER_TYPE SHADER_TYPE;
+    SHADER_TYPE SHADER_OF_TYPE;
 };
 
 #endif
