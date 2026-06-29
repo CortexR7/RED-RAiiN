@@ -5,6 +5,9 @@
 #include <vector>
 #include <GLFW_PREPROCESSOR.hpp>
 
+#define DEBUG_ON
+#include <ETL.hpp>
+
 
 class VULKAN_INSTANCE{
 

@@ -85,6 +85,15 @@ void VULKAN_INSTANCE::INIT_INSTANCE()
         throw std::runtime_error("Validation layers requested, but not available!");
     }
 
+    uint32_t INSTNACE_VERSION;
+    vkEnumerateInstanceVersion(&INSTNACE_VERSION);
+
+    if(INSTNACE_VERSION < VK_API_VERSION_1_3)
+    {
+        DEBUG_LOG("LOADER OR DRIVER DOES NOT SUPPORT       VULKAN 1.3   !!!!");
+        throw std::runtime_error("FAILED TO CREATE INSTNACE");
+    }
+
     VkApplicationInfo appInfo{};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
     appInfo.pApplicationName = "RED-RAiiN";
