@@ -3,19 +3,19 @@
 
 
 static VkPhysicalDeviceVulkan13Features getRequiredDeviceFeatures(VkPhysicalDevice device) {
-    VkPhysicalDeviceVulkan13Features features13{};
-    features13.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES;
+    VkPhysicalDeviceVulkan13Features Features13{};
+    Features13.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES;
 
     VkPhysicalDeviceFeatures2 features2{};
     features2.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2;
-    features2.pNext = &features13;
+    features2.pNext = &Features13;
 
     vkGetPhysicalDeviceFeatures2(device, &features2);
 
-    if (!features13.dynamicRendering){
+    if (!Features13.dynamicRendering){
         throw std::runtime_error("Device does not support dynamicRendering!");
     }
-    if (!features13.synchronization2){
+    if (!Features13.synchronization2){
         throw std::runtime_error("Device does not support synchronization2!");
     }
 
