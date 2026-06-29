@@ -19,7 +19,7 @@
 
 class VULKAN_PHYSICAL_DEVICE{
     private:
-    VkPhysicalDevice PH_DEVICE;
+    VkPhysicalDevice PH_DEVICE = VK_NULL_HANDLE;
 
     public:
     void INIT_DEVICE(WINDOW& WIN, VULKAN_INSTANCE& INSTANCE);
