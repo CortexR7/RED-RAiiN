@@ -17,10 +17,5 @@ vec3 GAMMA_ENCODE_RGB(vec3 RGB)
 [shader("fragment")]
 vec4 main(FSInput input) : SV_Target
 {
-    for (int i = 0; i < 223456; ++i)
-    {
-        input.fragColor = GAMMA_ENCODE_RGB(input.fragColor);
-    }
-
     return vec4(input.fragColor, 1.0);
 }
