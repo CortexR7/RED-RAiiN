@@ -4,18 +4,20 @@
 
 static VkPhysicalDeviceVulkan13Features getRequiredDeviceFeatures(VkPhysicalDevice device) {
     VkPhysicalDeviceVulkan13Features Features13{};
-    Features13.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES;
-
     VkPhysicalDeviceFeatures2 features2{};
+    
+    Features13.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES;
     features2.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2;
     features2.pNext = &Features13;
 
     vkGetPhysicalDeviceFeatures2(device, &features2);
 
     if (!Features13.dynamicRendering){
+        DEBUG_ERR("YOU PHYSICAL VULKAN DEVICE DOES NOT SUPPORT:         dynamicRendering     !!!!");
         throw std::runtime_error("Device does not support dynamicRendering!");
     }
     if (!Features13.synchronization2){
+        DEBUG_ERR("YOUR PHYSICAL VULKAN DEVICE DOES NOT SUPPORT:         synchronisation2     !!!!");
         throw std::runtime_error("Device does not support synchronization2!");
     }
 
@@ -47,7 +49,7 @@ void VULKAN_LOGICAL_DEVICE::INIT(
 
 
     
-    VkPhysicalDeviceVulkan13Features features13 = getRequiredDeviceFeatures(p_device);
+    VkPhysicalDeviceVulkan13Features features13 = getRequiredDeviceFeatures(p_device); // WARNING: RETURNS THE STRUCT OPR FAILS IF THE FEATURES ARE NOT SUPPORTED
     VkDeviceCreateInfo createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
     createInfo.pQueueCreateInfos = &queueCreateInfo;

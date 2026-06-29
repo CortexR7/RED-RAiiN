@@ -7,6 +7,9 @@
 #include <VULKAN_QUEUE.hpp>
 #include <vector>
 
+#define DEBUG_ON
+#include <ETL.hpp>
+
 
 class VULKAN_LOGICAL_DEVICE{
     private:

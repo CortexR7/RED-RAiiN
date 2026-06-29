@@ -8,8 +8,14 @@
     std::cout << "[DEBUG] \033[33m" << message << "\033[0m" << std::endl; \
 } while(0)
 
+#define DEBUG_ERR(message) do { \
+    std::cout << "[DEBUG] \033[31m" << message << "\033[0m" << std::endl; \
+} while(0)
+
 #else
 #define DEBUG_LOG(message) do {} while(0)
+#define DEBUG_ERR(message) do {} while(0)
+
 
 #endif
 #endif
