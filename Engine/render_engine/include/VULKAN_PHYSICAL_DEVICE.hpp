@@ -5,6 +5,9 @@
 #include <WINDOW.hpp>
 #include <VULKAN_INSTANCE.hpp>
 
+#define DEBUG_ON
+#include <ETL.hpp>
+
 /*
 *  Copyright (c) 2025 CortexR7
 *

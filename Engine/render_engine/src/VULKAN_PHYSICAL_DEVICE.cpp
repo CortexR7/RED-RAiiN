@@ -7,7 +7,17 @@ static bool isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR& surface)
 {
     QueueFamilyIndices indices = QUEUE::findQueueFamilies(device, surface);
 
-    return indices.isComplete() && true; // isSwapChainSuitable(device, surface);    WARNING SWAPCHAIN CHECK WILL COME IN FUTURE
+    bool DRIVER_API_SUPPRT = false;
+    VkPhysicalDeviceProperties PH_DEVICE_PROPS{};
+    vkGetPhysicalDeviceProperties(device, & PH_DEVICE_PROPS);
+    if(PH_DEVICE_PROPS.apiVersion < VK_API_VERSION_1_3)
+    {
+        DRIVER_API_SUPPRT = false;
+    } else{
+        DRIVER_API_SUPPRT = true;
+    }
+
+    return indices.isComplete() && DRIVER_API_SUPPRT && true; // isSwapChainSuitable(device, surface);    WARNING SWAPCHAIN CHECK WILL COME IN FUTURE
 }
 
 void VULKAN_PHYSICAL_DEVICE::INIT_DEVICE(WINDOW& WIN, VULKAN_INSTANCE& INSTANCE)
@@ -30,6 +40,7 @@ void VULKAN_PHYSICAL_DEVICE::INIT_DEVICE(WINDOW& WIN, VULKAN_INSTANCE& INSTANCE)
     }
 
     if (this->PH_DEVICE == VK_NULL_HANDLE) {
+        DEBUG_ERR("NO SUITABLE GPU WAS FOUDN EITHER DUE TO MISSING DRIVERS OR SIMPLY OLD HARDWARE WITH NO SUPPORT FOR Vulkan 1.3");
         throw std::runtime_error("failed to find a suitable GPU!");
     }
 }
