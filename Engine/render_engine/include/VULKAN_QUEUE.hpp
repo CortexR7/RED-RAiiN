@@ -5,6 +5,11 @@
 #include <optional>
 #include <vector>
 
+// This class defines a set of Vulkan queues that are used to submit
+// different types of commands
+
+
+
 struct QueueFamilyIndices {
     std::optional<uint32_t> graphicsFamily;
     std::optional<uint32_t> presentFamily;
