@@ -9,7 +9,7 @@ static bool isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR& surface)
 
     bool DRIVER_API_SUPPRT = false;
     VkPhysicalDeviceProperties PH_DEVICE_PROPS{};
-    vkGetPhysicalDeviceProperties(device, & PH_DEVICE_PROPS);
+    vkGetPhysicalDeviceProperties(device, &PH_DEVICE_PROPS);
     if(PH_DEVICE_PROPS.apiVersion < VK_API_VERSION_1_3)
     {
         DRIVER_API_SUPPRT = false;
