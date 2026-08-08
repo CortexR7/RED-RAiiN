@@ -5,9 +5,9 @@ project(
   version         : '0.0.0',
   default_options : [
     'cpp_std=c++20',
-    'buildtype=release',
+    'buildtype=debug',
     'warning_level=3',
-    'optimization=3',
+    'optimization=0',
   ],
 )
 
