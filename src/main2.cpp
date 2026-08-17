@@ -1,8 +1,6 @@
 #define LOGGER_ON
-#include <render_engine.hpp>
 #include <RENDER_ENGINE2.hpp>
 #include <iostream>
-#include <SHADER_COMPILER.hpp>
 
 #define DEBUG_ON
 #include <ETL.hpp>

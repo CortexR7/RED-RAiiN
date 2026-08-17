@@ -4,3 +4,12 @@
 [submodule "subprojects/slang"]
 	path = subprojects/slang
 	url = https://github.com/shader-slang/slang
+[submodule "Dependencies/glfw"]
+	path = Dependencies/glfw
+	url = https://github.com/glfw/glfw.git
+[submodule "Dependencies/slang"]
+	path = Dependencies/slang
+	url = https://github.com/shader-slang/slang.git
+[submodule "Dependencies/Vulkan-Headers"]
+	path = Dependencies/Vulkan-Headers
+	url = https://github.com/KhronosGroup/Vulkan-Headers.git
