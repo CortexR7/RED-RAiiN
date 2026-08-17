@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 4.4.2)
 project("RED-RAiiN")
 
 # defining dependencies
-
+add_subdirectory(${PROJECT_SOURCE_DIR}/Dependencies/glfw)
+add_subdirectory(${PROJECT_SOURCE_DIR}/Dependencies/slang)
+add_subdirectory(${PROJECT_SOURCE_DIR}/Dependencies/Vulkan-Loader)
 
 
 # Bulding local libraries
@@ -40,6 +42,8 @@ target_include_directories(
 target_link_libraries(SLANG2SPRIV
     PRIVATE
         ETL
+        glfw
+        slang
 )
 
 
@@ -85,6 +89,8 @@ target_link_libraries(LIBELLE
     PRIVATE
         ETL
         SLANG2SPRIV
+        glfw
+        slang
 )
 
 
@@ -103,4 +109,4 @@ target_include_directories(
         ${PROJECT_SOURCE_DIR}/Dependencies/slang/include
         ${PROJECT_SOURCE_DIR}/Dependencies/Vulkan-Headers/include
 )
-target_link_libraries(${PROJECT_NAME} PRIVATE LIBELLE SLANG2SPRIV ETL)
+target_link_libraries(${PROJECT_NAME} PRIVATE LIBELLE SLANG2SPRIV ETL vulkan)

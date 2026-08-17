@@ -13,3 +13,6 @@
 [submodule "Dependencies/Vulkan-Headers"]
 	path = Dependencies/Vulkan-Headers
 	url = https://github.com/KhronosGroup/Vulkan-Headers.git
+[submodule "Dependencies/Vulkan-Loader"]
+	path = Dependencies/Vulkan-Loader
+	url = https://github.com/KhronosGroup/Vulkan-Loader.git
