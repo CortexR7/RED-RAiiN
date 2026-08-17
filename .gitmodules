@@ -10,9 +10,6 @@
 [submodule "Dependencies/slang"]
 	path = Dependencies/slang
 	url = https://github.com/shader-slang/slang.git
-[submodule "Dependencies/Vulkan-Headers"]
-	path = Dependencies/Vulkan-Headers
-	url = https://github.com/KhronosGroup/Vulkan-Headers.git
 [submodule "Dependencies/Vulkan-Loader"]
 	path = Dependencies/Vulkan-Loader
 	url = https://github.com/KhronosGroup/Vulkan-Loader.git
