@@ -3,7 +3,22 @@ project("RED-RAiiN")
 
 # defining dependencies
 add_subdirectory(${PROJECT_SOURCE_DIR}/Dependencies/glfw)
+
+
+set(SLANG_ENABLE_TESTS OFF CACHE BOOL "" FORCE)
+set(SLANG_ENABLE_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(SLANG_ENABLE_GFX OFF CACHE BOOL "" FORCE)
+set(SLANG_ENABLE_SLANG_RHI OFF CACHE BOOL "" FORCE)
+set(SLANG_ENABLE_REPLAYER OFF CACHE BOOL "" FORCE)
+set(SLANG_ENABLE_DXIL OFF CACHE BOOL "" FORCE)        # skips the DXC/dxil prebuilt download
+set(SLANG_ENABLE_CUDA OFF CACHE BOOL "" FORCE)
+set(SLANG_ENABLE_OPTIX OFF CACHE BOOL "" FORCE)
+set(SLANG_ENABLE_NVAPI OFF CACHE BOOL "" FORCE)
+set(SLANG_ENABLE_AFTERMATH OFF CACHE BOOL "" FORCE)
+set(SLANG_ENABLE_DOCS OFF CACHE BOOL "" FORCE)        
 add_subdirectory(${PROJECT_SOURCE_DIR}/Dependencies/slang)
+
+set(UPDATE_DEPS ON CACHE BOOL "" FORCE)
 add_subdirectory(${PROJECT_SOURCE_DIR}/Dependencies/Vulkan-Loader)
 
 
@@ -37,7 +52,7 @@ target_include_directories(
         PRIVATE
         ${PROJECT_SOURCE_DIR}/Dependencies/glfw/include
         ${PROJECT_SOURCE_DIR}/Dependencies/slang/include
-        ${PROJECT_SOURCE_DIR}/Dependencies/Vulkan-Headers/include
+        ${PROJECT_SOURCE_DIR}/Dependencies/slang/external/vulkan/include
 )
 target_link_libraries(SLANG2SPRIV
     PRIVATE
@@ -83,7 +98,7 @@ target_include_directories(
         PRIVATE
         ${PROJECT_SOURCE_DIR}/Dependencies/glfw/include
         ${PROJECT_SOURCE_DIR}/Dependencies/slang/include
-        ${PROJECT_SOURCE_DIR}/Dependencies/Vulkan-Headers/include
+        ${PROJECT_SOURCE_DIR}/Dependencies/slang/external/vulkan/include
 )
 target_link_libraries(LIBELLE
     PRIVATE
@@ -107,6 +122,6 @@ target_include_directories(
         PUBLIC
         ${PROJECT_SOURCE_DIR}/Dependencies/glfw/include
         ${PROJECT_SOURCE_DIR}/Dependencies/slang/include
-        ${PROJECT_SOURCE_DIR}/Dependencies/Vulkan-Headers/include
+        ${PROJECT_SOURCE_DIR}/Dependencies/slang/external/vulkan/include
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE LIBELLE SLANG2SPRIV ETL vulkan)
