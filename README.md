@@ -24,7 +24,7 @@
 
 ---
 
-## ~~🔧 Build Instructions  ~~ **This section is now obsolete and is replaced by cmake. New Section coming soon**
+## ~🔧 Build Instructions~ **This section is now obsolete and is replaced by cmake. New Section coming soon**
 
 ![GCC](https://img.shields.io/badge/GCC-GNU-red?style=flat-square)
 ![Clang](https://img.shields.io/badge/Clang-LLVM-blue?style=flat-square)
