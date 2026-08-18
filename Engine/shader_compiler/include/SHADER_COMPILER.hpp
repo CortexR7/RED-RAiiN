@@ -1,7 +1,6 @@
 #ifndef SHADER_COMPILER_HPP
 #define SHADER_COMPILER_HPP
 
-#define SLANG_STATIC
 #include <vulkan/vulkan.h>
 #include <slang.h>
 #include <slang-com-ptr.h>

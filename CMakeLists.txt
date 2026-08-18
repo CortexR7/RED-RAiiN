@@ -1,10 +1,18 @@
 cmake_minimum_required(VERSION 4.4.2)
 project("RED-RAiiN")
 
+# defining project options
+option(NATIVE_COMPILE "Optimize for the build host's CPU. Possibly wont run on other CPUs if enabled" OFF)
+option(OPTIMIZATION "Enables compiler optimizations" OFF)
+
+
+
+
 # defining dependencies
 add_subdirectory(${PROJECT_SOURCE_DIR}/Dependencies/glfw)
 
 
+set(SLANG_LIB_TYPE STATIC CACHE STRING "" FORCE)
 set(SLANG_ENABLE_TESTS OFF CACHE BOOL "" FORCE)
 set(SLANG_ENABLE_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(SLANG_ENABLE_GFX OFF CACHE BOOL "" FORCE)
@@ -32,7 +40,7 @@ target_include_directories(
 )
 
 
-add_library(SLANG2SPRIV SHARED)
+add_library(SLANG2SPRIV STATIC)
 target_sources(
     SLANG2SPRIV
         PRIVATE
@@ -62,7 +70,7 @@ target_link_libraries(SLANG2SPRIV
 )
 
 
-add_library(LIBELLE SHARED)
+add_library(LIBELLE STATIC)
 target_sources(
     LIBELLE
         PRIVATE
@@ -125,3 +133,20 @@ target_include_directories(
         ${PROJECT_SOURCE_DIR}/Dependencies/slang/external/vulkan/include
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE LIBELLE SLANG2SPRIV ETL vulkan)
+
+
+
+
+if(NATIVE_COMPILE)
+    message(STATUS "Enabling native compile optimizations")
+    target_compile_options(${PROJECT_NAME} PRIVATE -march=native)
+    target_compile_options(LIBELLE PRIVATE -march=native)
+    target_compile_options(SLANG2SPRIV PRIVATE -march=native)
+endif()
+
+if(OPTIMIZATION)
+    message(STATUS "Enabling compiler optimizations")
+    target_compile_options(${PROJECT_NAME} PRIVATE -O3)
+    target_compile_options(LIBELLE PRIVATE -O3)
+    target_compile_options(SLANG2SPRIV PRIVATE -O3)
+endif()
