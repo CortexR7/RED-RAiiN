@@ -1,14 +1,18 @@
 cmake_minimum_required(VERSION 4.3.1)
 project("RED-RAiiN")
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 # defining project options
 option(NATIVE_COMPILE "Optimize for the build host's CPU. Possibly wont run on other CPUs if enabled" OFF)
 option(OPTIMIZATION "Enables compiler optimizations" OFF)
 
 
 
-
 # defining dependencies
+set(GLFW_LIBRARY_TYPE STATIC CACHE STRING "" FORCE)
 add_subdirectory(${PROJECT_SOURCE_DIR}/Dependencies/glfw)
 
 
@@ -23,8 +27,9 @@ set(SLANG_ENABLE_CUDA OFF CACHE BOOL "" FORCE)
 set(SLANG_ENABLE_OPTIX OFF CACHE BOOL "" FORCE)
 set(SLANG_ENABLE_NVAPI OFF CACHE BOOL "" FORCE)
 set(SLANG_ENABLE_AFTERMATH OFF CACHE BOOL "" FORCE)
-set(SLANG_ENABLE_DOCS OFF CACHE BOOL "" FORCE)        
+set(SLANG_ENABLE_DOCS OFF CACHE BOOL "" FORCE)
 add_subdirectory(${PROJECT_SOURCE_DIR}/Dependencies/slang)
+
 
 set(UPDATE_DEPS ON CACHE BOOL "" FORCE)
 add_subdirectory(${PROJECT_SOURCE_DIR}/Dependencies/Vulkan-Loader)
