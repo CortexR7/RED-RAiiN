@@ -155,3 +155,10 @@ if(OPTIMIZATION)
     target_compile_options(LIBELLE PRIVATE -O3)
     target_compile_options(SLANG2SPRIV PRIVATE -O3)
 endif()
+
+
+
+# Adding shader sources the build directory so they can be loaded at runtime
+
+file(GLOB SHADER_FILES ${CMAKE_SOURCE_DIR}/Engine/shader_source/*.slang)
+file(COPY ${SHADER_FILES} DESTINATION ${CMAKE_BINARY_DIR}/)
