@@ -42,7 +42,7 @@ void VULKAN_SYNC::INIT(VULKAN_LOGICAL_DEVICE& DEVICE, uint8_t FRAMES_IN_FLIGHT, 
         }
     }
 
-    
+
     VkFenceCreateInfo fenceInfo{};
     fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
     fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
@@ -81,4 +81,10 @@ void VULKAN_SYNC::FREE(VULKAN_LOGICAL_DEVICE& DEVICE)
     {
         vkDestroySemaphore(DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), SEMAPHORE, nullptr);
     }
+}
+
+void VULKAN_SYNC::RE_INIT(VULKAN_LOGICAL_DEVICE& DEVICE, uint8_t FRAMES_IN_FLIGHT, VULKAN_SWAPCHAIN& SW)
+{
+    this->FREE(DEVICE);
+    this->INIT(DEVICE, FRAMES_IN_FLIGHT, SW);
 }

@@ -4,6 +4,7 @@ project("RED-RAiiN")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # defining project options
 option(NATIVE_COMPILE "Optimize for the build host's CPU. Possibly wont run on other CPUs if enabled" OFF)
@@ -39,8 +40,8 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/Dependencies/Vulkan-Loader)
 
 add_library(ETL INTERFACE)
 target_include_directories(
-    ETL 
-    INTERFACE 
+    ETL
+    INTERFACE
     ${PROJECT_SOURCE_DIR}/Engine/ETL/include
 )
 
@@ -131,7 +132,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     src/main2.cpp
 )
 target_include_directories(
-    ${PROJECT_NAME} 
+    ${PROJECT_NAME}
         PUBLIC
         ${PROJECT_SOURCE_DIR}/Dependencies/glfw/include
         ${PROJECT_SOURCE_DIR}/Dependencies/slang/include

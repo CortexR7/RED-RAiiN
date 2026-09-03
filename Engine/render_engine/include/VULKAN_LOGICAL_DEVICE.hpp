@@ -14,12 +14,13 @@
 class VULKAN_LOGICAL_DEVICE{
     private:
     VkDevice DEVICE;
-    
+
 
     public:
     QUEUE VK_QUEUE;
     void INIT(VULKAN_PHYSICAL_DEVICE PH_DEVICE, WINDOW WIN, std::vector<const char*> deviceExtensions, const std::vector<const char*> validationLayers, bool foo);
     void FREE();
+    void RESUME_AFTER_STALL();  // stalls the code until the logical device reaches idle.
 
     VkDevice GET_HANDLE_TO_VK_LOGICAL_DEVICE();
 };

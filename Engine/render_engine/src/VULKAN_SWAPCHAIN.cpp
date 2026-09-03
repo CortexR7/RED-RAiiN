@@ -18,14 +18,14 @@ SwapChainSupportDetails VULKAN_SWAPCHAIN::querySwapChainSupport(WINDOW WIN, VULK
     if(formatCount != 0){
         vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &formatCount, details.formats.data());
     }
-    
+
     uint32_t presentModeCount;
     vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, &presentModeCount, nullptr);
     details.presentModes.resize(presentModeCount);
     if(presentModeCount != 0){
         vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, &presentModeCount, details.presentModes.data());
     }
-    
+
     return details;
 }
 
@@ -35,7 +35,7 @@ bool VULKAN_SWAPCHAIN::isSwapChainSuitable(WINDOW WIN, VULKAN_PHYSICAL_DEVICE PH
     return (!swap_chain_support_details.formats.empty() && !swap_chain_support_details.presentModes.empty());
 }
 
-static VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats) 
+static VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats)
 {
     for(auto& availableFormat : availableFormats)
     {
@@ -44,14 +44,14 @@ static VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFor
             return availableFormat;
         }
     }
-    
+
     //---------------WARNING---------------//
     //------THIS-ERR-HANDLING-IS-STUPID----//
     //--------MIGHT-CRASH-THE-SYSTEM-------//
     return availableFormats[0];
 }
 
-static VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes) 
+static VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes)
 {
     for(auto& availablePresentMode : availablePresentModes)
     {
@@ -63,7 +63,7 @@ static VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR
     return VK_PRESENT_MODE_FIFO_KHR;
 }
 
-static VkExtent2D chooseSwapExtent(GLFWwindow*& window, const VkSurfaceCapabilitiesKHR& capabilities) 
+static VkExtent2D chooseSwapExtent(GLFWwindow*& window, const VkSurfaceCapabilitiesKHR& capabilities)
 {
     if(capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max())
     {
@@ -71,7 +71,7 @@ static VkExtent2D chooseSwapExtent(GLFWwindow*& window, const VkSurfaceCapabilit
     }
 
     int width, height;
-    glfwGetFramebufferSize(window, &width, &height);      
+    glfwGetFramebufferSize(window, &width, &height);
     VkExtent2D actualExtent = {static_cast<uint32_t>(width), static_cast<uint32_t>(height)};
 
     actualExtent.width = std::clamp(actualExtent.width, capabilities.minImageExtent.width, capabilities.maxImageExtent.width);
@@ -170,7 +170,7 @@ void VULKAN_SWAPCHAIN::INIT(WINDOW WIN, VULKAN_PHYSICAL_DEVICE PH_DEVICE, VULKAN
         createInfo.subresourceRange.levelCount = 1;
         createInfo.subresourceRange.baseArrayLayer = 0;
         createInfo.subresourceRange.layerCount = 1;
-        
+
         if(vkCreateImageView(this->LG_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), &createInfo, nullptr, &(this->SW_CHAIN_IMAGE_VIEWS[i])) != VK_SUCCESS)
         {
             throw std::runtime_error("failed to create image views!");
@@ -187,4 +187,10 @@ void VULKAN_SWAPCHAIN::FREE()
         vkDestroyImageView(this->LG_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), imageView, nullptr);
     }
     vkDestroySwapchainKHR(this->LG_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), this->SW_CHAIN, nullptr);
+}
+
+void VULKAN_SWAPCHAIN::RE_INIT(WINDOW WIN, VULKAN_PHYSICAL_DEVICE PH_DEVICE, VULKAN_LOGICAL_DEVICE LG_DEVICE)
+{
+    this->FREE();
+    this->INIT(WIN, PH_DEVICE, LG_DEVICE);
 }

@@ -9,7 +9,7 @@ void RENDER_ENGINE2::INIT_ENGINE()
     DEBUG_LOG("Main window initialized!");
     VKP_DEVICE.INIT_DEVICE(this->MAIN_WINDOW, this->VK_INSTANCE);
     DEBUG_LOG("Vulkan physical device initialized!");
-    VKL_DEVICE.INIT(this->VKP_DEVICE, MAIN_WINDOW, this->deviceExtensions, this->validationLayers, false); // ! WARNING ! need to figure out why thE "false" is wrong later 
+    VKL_DEVICE.INIT(this->VKP_DEVICE, MAIN_WINDOW, this->deviceExtensions, this->validationLayers, false); // ! WARNING ! need to figure out why thE "false" is wrong later
     DEBUG_LOG("Vulkan logical device initialized!");
     VK_SWAPCHAIN.INIT(MAIN_WINDOW, VKP_DEVICE, VKL_DEVICE);
     DEBUG_LOG("Vulkan swapchain initialized!");
@@ -25,7 +25,13 @@ void RENDER_ENGINE2::RUN_ENGINE()
     while (!glfwWindowShouldClose(MAIN_WINDOW.getWindow()))
     {
         glfwPollEvents();
-        DRAW_FRAME();
+        if(true)
+        {
+            VKL_DEVICE.RESUME_AFTER_STALL();
+            this->VK_SWAPCHAIN.RE_INIT(this->MAIN_WINDOW, this->VKP_DEVICE, this->VKL_DEVICE);
+            this->VK_SYNC.RE_INIT(this->VKL_DEVICE, this->FRAMES_IN_FLIGHT,this->VK_SWAPCHAIN);
+        }
+        this->DRAW_FRAME();
     }
 }
 
@@ -36,18 +42,18 @@ void RENDER_ENGINE2::DRAW_FRAME(void)
 
     uint32_t imageIndex;
     vkAcquireNextImageKHR(
-        VKL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), 
-        VK_SWAPCHAIN.SW_CHAIN, 
-        UINT64_MAX, 
-        VK_SYNC.SEMAPHORES_IMAGE_AVAILABLE.DATA()[CURRENT_FRAME], 
-        VK_NULL_HANDLE, 
+        VKL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(),
+        VK_SWAPCHAIN.SW_CHAIN,
+        UINT64_MAX,
+        VK_SYNC.SEMAPHORES_IMAGE_AVAILABLE.DATA()[CURRENT_FRAME],
+        VK_NULL_HANDLE,
         &imageIndex
     );
 
     VK_CMD.RECORD_CMD_BUFFER_GRAPHICS(
-        this->VK_CMD.CMD_BUFFERS_GRAPHICS.DATA()[CURRENT_FRAME], 
-        imageIndex, 
-        this->VK_SWAPCHAIN, 
+        this->VK_CMD.CMD_BUFFERS_GRAPHICS.DATA()[CURRENT_FRAME],
+        imageIndex,
+        this->VK_SWAPCHAIN,
         this->VK_PIPELINE
     );
 
