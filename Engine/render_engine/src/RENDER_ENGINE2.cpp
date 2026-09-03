@@ -25,8 +25,8 @@ void RENDER_ENGINE2::RUN_ENGINE()
     while (!glfwWindowShouldClose(MAIN_WINDOW.getWindow()))
     {
         glfwPollEvents();
-        if(true)
-        {
+        if(true)     // WARNING: I should have used something else such as a proper frambaufferresize callback but this cannot be done right now since 
+        {            //          WINDOW is owned by RENDER_ENGINE2 it cannot acces the ressources from RENDER_ENGINE2.
             VKL_DEVICE.RESUME_AFTER_STALL();
             this->VK_SWAPCHAIN.RE_INIT(this->MAIN_WINDOW, this->VKP_DEVICE, this->VKL_DEVICE);
             this->VK_SYNC.RE_INIT(this->VKL_DEVICE, this->FRAMES_IN_FLIGHT,this->VK_SWAPCHAIN);
