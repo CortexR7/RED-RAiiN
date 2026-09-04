@@ -2,7 +2,6 @@
 #define VULKAN_CMD_HPP
 
 #include <vulkan/vulkan.h>
-#include <vector>
 #include <VULKAN_QUEUE.hpp>
 #include <VULKAN_PHYSICAL_DEVICE.hpp>
 #include <WINDOW.hpp>
@@ -25,6 +24,5 @@ class VULKAN_CMD{
     void RECORD_CMD_BUFFER_GRAPHICS(VkCommandBuffer& CMD_BUFFER, uint32_t imageIndex, VULKAN_SWAPCHAIN& SWAPCHAIN, VULKAN_PIPELINE& PIPELINE);
     void FREE(VULKAN_LOGICAL_DEVICE& LG_DEVICE);
 };
-
 
 #endif

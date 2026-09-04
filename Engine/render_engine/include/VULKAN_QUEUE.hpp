@@ -3,7 +3,6 @@
 
 #include <vulkan/vulkan.h>
 #include <optional>
-#include <vector>
 
 // This class defines a set of Vulkan queues that are used to submit
 // different types of commands
@@ -23,8 +22,8 @@ class QUEUE{
     public:
     VkQueue PRESENT_QUEUE;
     VkQueue GRAPHICS_QUEUE;
-    
-    
+
+
     static QueueFamilyIndices findQueueFamilies(VkPhysicalDevice& device, VkSurfaceKHR& surface);
 };
 

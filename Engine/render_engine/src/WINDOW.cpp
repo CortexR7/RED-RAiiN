@@ -1,6 +1,4 @@
 #include <WINDOW.hpp>
-#include <iostream>
-#include <string>
 #include <RENDER_ENGINE2.hpp>
 
 

@@ -1,4 +1,5 @@
 #include <VULKAN_QUEUE.hpp>
+#include <vector>
 
 QueueFamilyIndices QUEUE::findQueueFamilies(VkPhysicalDevice& device, VkSurfaceKHR& surface)
 {

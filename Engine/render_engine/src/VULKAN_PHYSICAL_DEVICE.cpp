@@ -1,6 +1,5 @@
 #include <VULKAN_PHYSICAL_DEVICE.hpp>
 #include <VULKAN_QUEUE.hpp>
-#include <iostream>
 
 
 static bool isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR& surface)

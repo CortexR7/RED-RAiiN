@@ -1,6 +1,4 @@
-#include "vulkan/vulkan_core.h"
 #include <VULKAN_LOGICAL_DEVICE.hpp>
-#include <iostream>
 
 
 static VkPhysicalDeviceVulkan13Features getRequiredDeviceFeatures(VkPhysicalDevice device) {
