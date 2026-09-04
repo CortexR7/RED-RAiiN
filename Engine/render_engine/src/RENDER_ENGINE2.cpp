@@ -38,7 +38,7 @@ void RENDER_ENGINE2::DRAW_FRAME(void)
     vkResetFences(VKL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), 1, &VK_SYNC.FENCES.DATA()[CURRENT_FRAME]);
 
     uint32_t imageIndex;
-    vkAcquireNextImageKHR(
+    VkResult result = vkAcquireNextImageKHR(
         VKL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(),
         VK_SWAPCHAIN.SW_CHAIN,
         UINT64_MAX,
@@ -46,6 +46,13 @@ void RENDER_ENGINE2::DRAW_FRAME(void)
         VK_NULL_HANDLE,
         &imageIndex
     );
+
+    if(result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR)
+    {
+        this->RECREATE_SW_CHAIN_SAFELY(this->MAIN_WINDOW.getWidth(), MAIN_WINDOW.getHeight());
+    } else if (result != VK_SUCCESS) {
+        throw std::runtime_error("failed to present swap chain image!");
+    }
 
     VK_CMD.RECORD_CMD_BUFFER_GRAPHICS(
         this->VK_CMD.CMD_BUFFERS_GRAPHICS.DATA()[CURRENT_FRAME],
@@ -112,7 +119,7 @@ RENDER_ENGINE2::~RENDER_ENGINE2()
 
 void RENDER_ENGINE2::INIT_WINDOW_CALLBACKS()
 {
-    this->MAIN_WINDOW.FRAMEBUFFER_SIZE_CALLBACK_IMPL = [&] (int width, int height) -> void {
+    this->RECREATE_SW_CHAIN_SAFELY = [&] (int width, int height) -> void {
         VKL_DEVICE.RESUME_AFTER_STALL();
         DEBUG_LOG("Running after stall");
         MAIN_WINDOW.setHeight(height);
@@ -121,4 +128,5 @@ void RENDER_ENGINE2::INIT_WINDOW_CALLBACKS()
         VK_SYNC.RE_INIT(this->VKL_DEVICE, this->FRAMES_IN_FLIGHT,this->VK_SWAPCHAIN);
         DEBUG_LOG("Finsihed Recreating SWAPCHAIN and VK_SYNC");
     };
+    this->MAIN_WINDOW.FRAMEBUFFER_SIZE_CALLBACK_IMPL = this->RECREATE_SW_CHAIN_SAFELY;
 }

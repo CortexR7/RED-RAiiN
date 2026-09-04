@@ -56,7 +56,7 @@ class RENDER_ENGINE2{
     uint8_t FRAMES_IN_FLIGHT = 2;
     uint8_t CURRENT_FRAME = 0;
 
-
+    std::function<void(int, int)> RECREATE_SW_CHAIN_SAFELY;
 
     void RUN_ENGINE();
     void DRAW_FRAME(void);
