@@ -2,6 +2,7 @@
 #include <RENDER_ENGINE2.hpp>
 #include <functional>
 
+#define DEBUG_ON
 
 void RENDER_ENGINE2::INIT_ENGINE()
 {
