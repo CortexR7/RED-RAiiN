@@ -66,6 +66,8 @@ void WINDOW::INIT_WINDOW(VULKAN_INSTANCE& INSTANCE)
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
     this->window = glfwCreateWindow(this->width, this->height, "RED-RAiiN Engine", nullptr, nullptr);
+    glfwSetWindowUserPointer(this->window, static_cast<void*>(this));
+    this->SETUP_CALLBACK_FUNCTIONS();
 
     createvksurface(INSTANCE.getInstance(), this->surface, this->window);
 }

@@ -1,4 +1,6 @@
+#include "impl/DEBUG_LOG.hpp"
 #include <RENDER_ENGINE2.hpp>
+#include <functional>
 
 
 void RENDER_ENGINE2::INIT_ENGINE()
@@ -6,6 +8,7 @@ void RENDER_ENGINE2::INIT_ENGINE()
     VK_INSTANCE.INIT_INSTANCE();
     DEBUG_LOG("Vulkan instance created successfully!");
     MAIN_WINDOW.INIT_WINDOW(this->VK_INSTANCE);
+    this->INIT_WINDOW_CALLBACKS();
     DEBUG_LOG("Main window initialized!");
     VKP_DEVICE.INIT_DEVICE(this->MAIN_WINDOW, this->VK_INSTANCE);
     DEBUG_LOG("Vulkan physical device initialized!");
@@ -25,12 +28,6 @@ void RENDER_ENGINE2::RUN_ENGINE()
     while (!glfwWindowShouldClose(MAIN_WINDOW.getWindow()))
     {
         glfwPollEvents();
-        if(true)     // WARNING: I should have used something else such as a proper frambaufferresize callback but this cannot be done right now since 
-        {            //          WINDOW is owned by RENDER_ENGINE2 it cannot acces the ressources from RENDER_ENGINE2.
-            VKL_DEVICE.RESUME_AFTER_STALL();
-            this->VK_SWAPCHAIN.RE_INIT(this->MAIN_WINDOW, this->VKP_DEVICE, this->VKL_DEVICE);
-            this->VK_SYNC.RE_INIT(this->VKL_DEVICE, this->FRAMES_IN_FLIGHT,this->VK_SWAPCHAIN);
-        }
         this->DRAW_FRAME();
     }
 }
@@ -111,4 +108,17 @@ RENDER_ENGINE2::RENDER_ENGINE2()
 RENDER_ENGINE2::~RENDER_ENGINE2()
 {
     this->FREE_ENGINE();
+}
+
+void RENDER_ENGINE2::INIT_WINDOW_CALLBACKS()
+{
+    this->MAIN_WINDOW.FRAMEBUFFER_SIZE_CALLBACK_IMPL = [&] (int width, int height) -> void {
+        VKL_DEVICE.RESUME_AFTER_STALL();
+        DEBUG_LOG("Running after stall");
+        MAIN_WINDOW.setHeight(height);
+        MAIN_WINDOW.setWidth(width);
+        VK_SWAPCHAIN.RE_INIT(this->MAIN_WINDOW, this->VKP_DEVICE, this->VKL_DEVICE);
+        VK_SYNC.RE_INIT(this->VKL_DEVICE, this->FRAMES_IN_FLIGHT,this->VK_SWAPCHAIN);
+        DEBUG_LOG("Finsihed Recreating SWAPCHAIN and VK_SYNC");
+    };
 }

@@ -81,6 +81,7 @@ target_sources(
     LIBELLE
         PRIVATE
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/src/WINDOW.cpp
+        ${PROJECT_SOURCE_DIR}/Engine/render_engine/src/WINDOW_CALLBACK.cpp
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/src/VULKAN_SYNC.cpp
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/src/VULKAN_SWAPCHAIN.cpp
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/src/VULKAN_QUEUE.cpp

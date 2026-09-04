@@ -4,6 +4,7 @@
 #include <vulkan/vulkan.h>
 #include <GLFW_PREPROCESSOR.hpp>
 #include <VULKAN_INSTANCE.hpp>
+#include <functional>
 
 /*
 *   Copyright (c) 2026 CortexR7
@@ -14,11 +15,14 @@
 
 class WINDOW{
 
-    private: 
-    GLFWwindow* window;    
+    private:
+    GLFWwindow* window;
     VkSurfaceKHR surface;
     uint16_t width = 870;
     uint16_t height = 730;
+
+    static void FRAMEBUFFER_SIZE_CALLBACK(GLFWwindow* window, int width, int height);
+    void SETUP_CALLBACK_FUNCTIONS();
 
     public:
     // Setters and Getters
@@ -32,6 +36,11 @@ class WINDOW{
     VkSurfaceKHR& getSurface();
     uint16_t getWidth();
     uint16_t getHeight();
+
+
+    // WARNING: Belowe this section there will be the std::functions that will store the actual implementtation for the
+    // callback functions
+    std::function<void(int, int)> FRAMEBUFFER_SIZE_CALLBACK_IMPL; // USAGE: FRAMEBUFFER_SIZE_CALLBACK_IMPL(width, height)
 
 
     // constructor and destructor

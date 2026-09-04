@@ -30,6 +30,7 @@
 class RENDER_ENGINE2{
     private:
     void INIT_ENGINE();
+    void INIT_WINDOW_CALLBACKS();
     void FREE_ENGINE();
 
     std::vector<const char*> deviceExtensions = {
@@ -40,7 +41,7 @@ class RENDER_ENGINE2{
     const std::vector<const char*> validationLayers = {
         "VK_LAYER_KHRONOS_validation"
     };
-    
+
 
     public:
     WINDOW MAIN_WINDOW;
@@ -55,11 +56,11 @@ class RENDER_ENGINE2{
     uint8_t FRAMES_IN_FLIGHT = 2;
     uint8_t CURRENT_FRAME = 0;
 
-    
-    
+
+
     void RUN_ENGINE();
     void DRAW_FRAME(void);
-    
+
 
     RENDER_ENGINE2();
     ~RENDER_ENGINE2();
