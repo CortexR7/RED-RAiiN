@@ -14,6 +14,7 @@
 // utility class
 #include <RE2_VERTEX.hpp>
 #include <RE2_VK_BUFFER.hpp>
+#include <RE2_VERTEX_BUFFER.hpp>
 
 
 #define DEBUG_ON
@@ -46,7 +47,7 @@ class RENDER_ENGINE2{
         "VK_LAYER_KHRONOS_validation"
     };
 
-    const std::vector<RE2_V2D> RE2_DUMMY_VERTEX_DATA = {
+    std::vector<RE2_V2D> RE2_DUMMY_VERTEX_DATA = {
         {{-1.0f,  1.0f}, {0.0f, 0.0f, 1.0f}},  // top-left
         {{ 0.0f, -1.0f}, {0.0f, 1.0f, 0.0f}},  // bottom
         {{ 1.0f,  1.0f}, {1.0f, 0.0f, 0.0f}},  // top-right
@@ -71,7 +72,7 @@ class RENDER_ENGINE2{
     VULKAN_CMD VK_CMD;
     QUEUE VK_QUEUE;
     VULKAN_SYNC VK_SYNC;
-    RE2_VK_BUFFER VK_BUFFER;
+    RE2_VERTEX_BUFFER VK_VERTEX_BUFFER;
     uint8_t FRAMES_IN_FLIGHT = 2;
     uint8_t CURRENT_FRAME = 0;
 

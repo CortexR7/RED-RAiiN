@@ -1,0 +1,89 @@
+#include <RE2_VERTEX_BUFFER.hpp>
+
+void RE2_VERTEX_BUFFER::INIT(void* DATA, size_t SIZE, VULKAN_LOGICAL_DEVICE LGD, VULKAN_PHYSICAL_DEVICE PHD, const VkCommandPool& CMD_POOL)
+{
+    RE2_VK_BUFFER::INIT(LGD, PHD, CMD_POOL);
+
+    VkBuffer STAGE_BUFFER;
+    VkDeviceMemory STAGE_MEMORY;
+
+    RE2_VK_BUFFER::CREATE_BUFFER(
+        SIZE,
+        VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
+        VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
+        STAGE_BUFFER,
+        STAGE_MEMORY
+    );
+
+    RE2_VK_BUFFER::WRITE_BUFFER(
+        DATA,
+        SIZE,
+        STAGE_MEMORY
+    );
+
+    this->BUFFER.resize(1);
+    this->BUFFER_MEMORY.resize(1);
+
+    RE2_VK_BUFFER::CREATE_BUFFER(
+        SIZE,
+        VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
+        VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
+        this->BUFFER[0],
+        this->BUFFER_MEMORY[0]
+    );
+
+    this->COPY_BUFFER_DATA(STAGE_BUFFER, BUFFER[0], SIZE);
+
+    vkDestroyBuffer(RE2_VK_BUFFER::LGD.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), STAGE_BUFFER, nullptr);
+    vkFreeMemory(RE2_VK_BUFFER::LGD.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), STAGE_MEMORY, nullptr);
+}
+
+void RE2_VERTEX_BUFFER::COPY_BUFFER_DATA(VkBuffer SRC_BUFFER, VkBuffer DST_BUFFER, VkDeviceSize SIZE)
+{
+    VkCommandBuffer CMD_BUFFER;
+    VkCommandBufferAllocateInfo ALLOC_INFO{};
+    ALLOC_INFO.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+    ALLOC_INFO.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+    ALLOC_INFO.commandPool = RE2_VK_BUFFER::CMD_POOL_TRANSFER;
+    ALLOC_INFO.commandBufferCount = 1;
+
+    vkAllocateCommandBuffers(RE2_VK_BUFFER::LGD.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), &ALLOC_INFO, &CMD_BUFFER);
+
+
+    VkCommandBufferBeginInfo BEGIN_INFO{};
+    BEGIN_INFO.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+    BEGIN_INFO.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
+
+    vkBeginCommandBuffer(CMD_BUFFER, &BEGIN_INFO);
+
+
+    VkBufferCopy COPY_REGION{};
+    COPY_REGION.srcOffset = 0; // Optional
+    COPY_REGION.dstOffset = 0; // Optional
+    COPY_REGION.size = SIZE;
+    vkCmdCopyBuffer(CMD_BUFFER, SRC_BUFFER, DST_BUFFER, 1, &COPY_REGION);
+    vkEndCommandBuffer(CMD_BUFFER);
+
+
+    VkSubmitInfo SUBMIT_INFO{};
+    SUBMIT_INFO.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+    SUBMIT_INFO.commandBufferCount = 1;
+    SUBMIT_INFO .pCommandBuffers = &CMD_BUFFER;
+
+    vkQueueSubmit(RE2_VK_BUFFER::LGD.VK_QUEUE.GRAPHICS_QUEUE, 1, &SUBMIT_INFO, VK_NULL_HANDLE);
+    vkQueueWaitIdle(RE2_VK_BUFFER::LGD.VK_QUEUE.GRAPHICS_QUEUE);
+
+    vkFreeCommandBuffers(RE2_VK_BUFFER::LGD.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), RE2_VK_BUFFER::CMD_POOL_TRANSFER, 1, &CMD_BUFFER);
+}
+
+void RE2_VERTEX_BUFFER::FREE()
+{
+    for(const auto& BUF : this->BUFFER)
+    {
+        vkDestroyBuffer(RE2_VK_BUFFER::LGD.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), BUF, nullptr);
+    }
+    for(const auto& BUF_MEM: this->BUFFER_MEMORY)
+    {
+        vkFreeMemory(RE2_VK_BUFFER::LGD.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), BUF_MEM, nullptr);
+    }
+}

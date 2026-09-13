@@ -6,17 +6,18 @@
 #include <stdexcept>
 
 
-void RE2_VK_BUFFER::INIT(void* DATA, size_t SIZE, VULKAN_LOGICAL_DEVICE LGD, VULKAN_PHYSICAL_DEVICE PHD)
+void RE2_VK_BUFFER::INIT(void *DATA, size_t SIZE, VULKAN_LOGICAL_DEVICE LGD, VULKAN_PHYSICAL_DEVICE PHD, const VkCommandPool& CMD_POOL)
 {
     this->LGD = LGD;
     this->PHD = PHD;
+    this->CMD_POOL_TRANSFER = CMD_POOL;
     BUFFER.resize(1);
     BUFFER_MEMORY.resize(1);
 
     this->CREATE_BUFFER(
         SIZE,
-        VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
         VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
+        VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
         this->BUFFER[0],
         this->BUFFER_MEMORY[0]
     );
@@ -25,6 +26,13 @@ void RE2_VK_BUFFER::INIT(void* DATA, size_t SIZE, VULKAN_LOGICAL_DEVICE LGD, VUL
         SIZE,
         this->BUFFER_MEMORY[0]
     );
+}
+
+void RE2_VK_BUFFER::INIT(VULKAN_LOGICAL_DEVICE LGD, VULKAN_PHYSICAL_DEVICE PHD, const VkCommandPool& CMD_POOL)
+{
+    this->LGD = LGD;
+    this->PHD = PHD;
+    this->CMD_POOL_TRANSFER = CMD_POOL;
 }
 
 void RE2_VK_BUFFER::FREE()
@@ -39,9 +47,9 @@ void RE2_VK_BUFFER::FREE()
     }
 }
 
-RE2_VK_BUFFER::RE2_VK_BUFFER(VULKAN_LOGICAL_DEVICE LGD, VULKAN_PHYSICAL_DEVICE PHD, size_t SIZE, void* DATA)
+RE2_VK_BUFFER::RE2_VK_BUFFER(VULKAN_LOGICAL_DEVICE LGD, VULKAN_PHYSICAL_DEVICE PHD, size_t SIZE, void* DATA, VkCommandPool& CMD_POOL)
 {
-    this->INIT(DATA, SIZE, LGD, PHD);
+    this->INIT(DATA, SIZE, LGD, PHD, CMD_POOL);
 }
 
 RE2_VK_BUFFER::~RE2_VK_BUFFER(){}
@@ -64,7 +72,7 @@ static uint32_t FIND_MEMORY_TYPE(uint32_t TYPE_BITMASK, VkMemoryPropertyFlags PR
 void RE2_VK_BUFFER::SETUP_ALLOCATE_MEMORY(
     VULKAN_LOGICAL_DEVICE LGD,
     VULKAN_PHYSICAL_DEVICE PHD,
-    VkBufferUsageFlags USAGE,
+    VkMemoryPropertyFlags PROPS,
     VkDeviceMemory& VERTEX_BUFFER_MEMORY,
     VkBuffer& VERTEX_BUFFER
 )
@@ -77,7 +85,7 @@ void RE2_VK_BUFFER::SETUP_ALLOCATE_MEMORY(
     ALLOC_INFO.allocationSize = MEMORY_REQUIREMENTS.size;
     ALLOC_INFO.memoryTypeIndex = FIND_MEMORY_TYPE(
         MEMORY_REQUIREMENTS.memoryTypeBits,
-        USAGE,
+        PROPS,
         PHD
     );
 
@@ -99,7 +107,7 @@ void RE2_VK_BUFFER::CREATE_BUFFER(VkDeviceSize SIZE, VkBufferUsageFlags USAGE, V
     VkBufferCreateInfo BUFFER_INFO{};
     BUFFER_INFO.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     BUFFER_INFO.size = SIZE;
-    BUFFER_INFO.usage = PROPS;
+    BUFFER_INFO.usage = USAGE;
     BUFFER_INFO.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
     if (vkCreateBuffer(LGD.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), &BUFFER_INFO, nullptr, &BUFFER) != VK_SUCCESS) {
@@ -107,36 +115,17 @@ void RE2_VK_BUFFER::CREATE_BUFFER(VkDeviceSize SIZE, VkBufferUsageFlags USAGE, V
         throw std::runtime_error("failed to create vertex buffer!");
     }
 
-    this->SETUP_ALLOCATE_MEMORY(this->LGD, this->PHD,  USAGE, BUFFER_MEMORY, BUFFER);
-}
-
-void RE2_VK_BUFFER::CREATE_VERTEX_BUFFER(void *DATA, VkDeviceSize SIZE, VkBuffer& BUFFER, VkDeviceMemory& BUFFER_MEMORY)
-{
-    VkBuffer STAGE_BUFFER;
-    VkDeviceMemory STAGE_MEMORY;
-
-    this->CREATE_BUFFER(
-        SIZE,
-        VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
-        VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
-        STAGE_BUFFER,
-        STAGE_MEMORY
-    );
-    this->WRITE_BUFFER(
-        DATA,
-        SIZE,
-        STAGE_MEMORY
-    );
-
-    // implemetation coming soon (for high peformamnce memory) !
+    this->SETUP_ALLOCATE_MEMORY(this->LGD, this->PHD,  PROPS, BUFFER_MEMORY, BUFFER);
 }
 
 void RE2_VK_BUFFER::WRITE_BUFFER(void* DATA, size_t SIZE, VkDeviceMemory& BUFFER_MEMORY)
 {
+    DEBUG_LOG("If I get reached but my counter of 0 not u know I invoked the bug");
     void* MEMORY_DATA;
     vkMapMemory(this->LGD.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), BUFFER_MEMORY, 0, SIZE, 0, &MEMORY_DATA);
     memcpy(MEMORY_DATA, DATA, SIZE);
     vkUnmapMemory(this->LGD.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), BUFFER_MEMORY);
+    DEBUG_LOG("COUNTER REACHED 0");
 }
 
 RE2_VK_BUFFER::RE2_VK_BUFFER(){}
