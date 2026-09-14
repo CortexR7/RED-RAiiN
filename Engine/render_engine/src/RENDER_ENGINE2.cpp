@@ -1,3 +1,4 @@
+#include "RE2_INDEX_BUFFER.hpp"
 #include <RENDER_ENGINE2.hpp>
 #include <functional>
 
@@ -26,6 +27,14 @@ void RENDER_ENGINE2::INIT_ENGINE()
         this->VKL_DEVICE,
         this->VKP_DEVICE,
         VK_CMD.CMD_POOL_GRAPHICS
+    );
+    VK_INDEX_BUFFER.INIT(
+        (void*)RE2_DUMMY_INDEX_DATA.data(),
+        sizeof(RE2_DUMMY_INDEX_DATA[0]) * RE2_DUMMY_INDEX_DATA.size(),
+        this->VKL_DEVICE,
+        this->VKP_DEVICE,
+        VK_CMD.CMD_POOL_GRAPHICS,
+        this->RE2_DUMMY_INDEX_DATA.size()
     );
     DEBUG_LOG("VERTEX BUFFER initialised !");
     VK_SYNC.INIT(this->VKL_DEVICE, this->FRAMES_IN_FLIGHT, this->VK_SWAPCHAIN);
@@ -68,7 +77,8 @@ void RENDER_ENGINE2::DRAW_FRAME(void)
         imageIndex,
         this->VK_SWAPCHAIN,
         this->VK_PIPELINE,
-        this->VK_VERTEX_BUFFER
+        this->VK_VERTEX_BUFFER,
+        this->VK_INDEX_BUFFER
     );
 
     VkSubmitInfo submitInfo{};
@@ -112,6 +122,7 @@ void RENDER_ENGINE2::FREE_ENGINE()
     VK_SYNC.FREE(VKL_DEVICE);
     VK_PIPELINE.FREE(VKL_DEVICE);
     VK_VERTEX_BUFFER.FREE();
+    VK_INDEX_BUFFER.FREE();
     VK_SWAPCHAIN.FREE();
     MAIN_WINDOW.FREE(VK_INSTANCE);
     VKL_DEVICE.FREE();

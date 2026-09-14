@@ -15,6 +15,7 @@
 #include <RE2_VERTEX.hpp>
 #include <RE2_VK_BUFFER.hpp>
 #include <RE2_VERTEX_BUFFER.hpp>
+#include <RE2_INDEX_BUFFER.hpp>
 
 
 #define DEBUG_ON
@@ -48,9 +49,15 @@ class RENDER_ENGINE2{
     };
 
     std::vector<RE2_V2D> RE2_DUMMY_VERTEX_DATA = {
-        {{-1.0f,  1.0f}, {0.0f, 0.0f, 1.0f}},  // top-left
-        {{ 0.0f, -1.0f}, {0.0f, 1.0f, 0.0f}},  // bottom
-        {{ 1.0f,  1.0f}, {1.0f, 0.0f, 0.0f}},  // top-right
+        {{-0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}},
+        {{0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}},
+        {{0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}},
+        {{-0.5f, 0.5f}, {1.0f, 1.0f, 1.0f}}
+    };
+
+
+    const std::vector<uint16_t> RE2_DUMMY_INDEX_DATA = {
+        0, 1, 2, 2, 3, 0
     };
 
     /*  // NOTE: This data was culled away (I think due to backface culling)
@@ -73,6 +80,7 @@ class RENDER_ENGINE2{
     QUEUE VK_QUEUE;
     VULKAN_SYNC VK_SYNC;
     RE2_VERTEX_BUFFER VK_VERTEX_BUFFER;
+    RE2_INDEX_BUFFER VK_INDEX_BUFFER;
     uint8_t FRAMES_IN_FLIGHT = 2;
     uint8_t CURRENT_FRAME = 0;
 

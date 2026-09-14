@@ -35,6 +35,7 @@ class RE2_VK_BUFFER{
 
     std::vector<VkDeviceMemory> BUFFER_MEMORY;
     std::vector<VkBuffer> BUFFER;
+    std::vector<size_t> BUFFER_SIZE;
 
     virtual void INIT(void* DATA, size_t SIZE, VULKAN_LOGICAL_DEVICE LGD, VULKAN_PHYSICAL_DEVICE PHD, const VkCommandPool& CMD_POOL);
     void INIT(VULKAN_LOGICAL_DEVICE LGD, VULKAN_PHYSICAL_DEVICE PHD, const VkCommandPool& CMD_POOL);

@@ -104,6 +104,7 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/utility/src/RE2_VERTEX2D.cpp
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/utility/src/RE2_VK_BUFFER.cpp
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/utility/src/RE2_VERTEX_BUFFER.cpp
+        ${PROJECT_SOURCE_DIR}/Engine/render_engine/utility/src/RE2_INDEX_BUFFER.cpp
 
         PUBLIC
         FILE_SET HEADERS
@@ -125,6 +126,7 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/utility/include/RE2_VERTEX.hpp
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/utility/include/RE2_VK_BUFFER.hpp
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/utility/include/RE2_VERTEX_BUFFER.hpp
+        ${PROJECT_SOURCE_DIR}/Engine/render_engine/utility/include/RE2_INDEX_BUFFER.hpp
 )
 target_include_directories(
     LIBELLE
