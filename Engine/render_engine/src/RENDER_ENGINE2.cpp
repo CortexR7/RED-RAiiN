@@ -1,4 +1,3 @@
-#include "RE2_INDEX_BUFFER.hpp"
 #include <RENDER_ENGINE2.hpp>
 #include <functional>
 
