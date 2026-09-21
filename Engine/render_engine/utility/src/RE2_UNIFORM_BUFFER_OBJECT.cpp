@@ -1,5 +1,8 @@
 #include <RE2_UNIFORM_BUFFER_OBJECT.hpp>
-
+#include <chrono>
+#include <cstdint>
+#include <glm/glm.hpp>
+#include <glm/ext.hpp>
 
 void RE2_UBO_OBJ::INIT(VULKAN_LOGICAL_DEVICE LGD, VULKAN_PHYSICAL_DEVICE PHD, const VULKAN_CMD& CMD_POOL, uint8_t UBO_COUNT)
 {
@@ -24,4 +27,20 @@ void RE2_UBO_OBJ::INIT(VULKAN_LOGICAL_DEVICE LGD, VULKAN_PHYSICAL_DEVICE PHD, co
             &this->DATA_PTRs[i]
         );
     }
+}
+
+void RE2_UBO_OBJ::UPDATE_UBO(uint32_t INDEX, VULKAN_SWAPCHAIN& SW)
+{
+    auto startTime = std::chrono::high_resolution_clock::now();
+    auto currentTime = std::chrono::high_resolution_clock::now();
+    float time = std::chrono::duration<float, std::chrono::seconds::period>(currentTime - startTime).count();
+
+    RE2_UBO UBO{};
+    UBO.MODEL = glm::rotate(glm::mat4(1.0f), time * glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    UBO.VIEW = glm::lookAt(glm::vec3(2.0f, 2.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    UBO.PROJECTION = glm::perspective(glm::radians(45.0f), SW.GET_SWAPCHAIN_RESOLUTION().width / (float) SW.GET_SWAPCHAIN_RESOLUTION().height, 0.1f, 10.0f);
+    UBO.PROJECTION[1][1] *= -1;
+
+    memcpy(this->DATA_PTRs[INDEX], &UBO, sizeof(UBO));
+    this->UBOs[INDEX] = UBO;
 }
