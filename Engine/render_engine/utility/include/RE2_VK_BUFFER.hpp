@@ -9,11 +9,12 @@
 */
 
 
+#include <cstdint>
 #include <vulkan/vulkan.h>
 #include <VULKAN_LOGICAL_DEVICE.hpp>
 #include <VULKAN_PHYSICAL_DEVICE.hpp>
 
-#define DEBUG_ON                    // NOTE: Comment this macro out if u want to disable DEBUG_LOGs for RE2_VK_BUFFER
+#define DEBUG_ON                        // NOTE: Comment this macro out if u want to disable DEBUG_LOGs for RE2_VK_BUFFER
 #include <ETL.hpp>
 
 
@@ -36,14 +37,16 @@ class RE2_VK_BUFFER{
     std::vector<VkDeviceMemory> BUFFER_MEMORY;
     std::vector<VkBuffer> BUFFER;
     std::vector<size_t> BUFFER_SIZE;
+    uint8_t MEMBER_ELEMENT_COUNT;
 
     virtual void INIT(void* DATA, size_t SIZE, VULKAN_LOGICAL_DEVICE LGD, VULKAN_PHYSICAL_DEVICE PHD, const VkCommandPool& CMD_POOL);
     void INIT(VULKAN_LOGICAL_DEVICE LGD, VULKAN_PHYSICAL_DEVICE PHD, const VkCommandPool& CMD_POOL);
+    void INIT(VULKAN_LOGICAL_DEVICE LGD, VULKAN_PHYSICAL_DEVICE PHD, const VkCommandPool& CMD_POOL, uint8_t MEMBER_ELEMENT_COUNT);
     void FREE();
 
 
 
-    void CREATE_BUFFER(                 // NOTE: creates a Buffer based on USAGE and PROPS
+    void CREATE_BUFFER(                    // NOTE: creates a Buffer based on USAGE and PROPS
         VkDeviceSize SIZE,
         VkBufferUsageFlags USAGE,
         VkMemoryPropertyFlags PROPS,
