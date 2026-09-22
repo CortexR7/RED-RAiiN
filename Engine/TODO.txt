@@ -1,0 +1,5 @@
+// This is a TODO list
+// Things us probably should fix in the future
+
+- Rewrite core parts of the shader compiler. (Compiler assumes that the shaders are all correct if this is not the case it SEGFAULTs.)      // STATUS: NOT DONE
+- Fix Validation layer enabling (the validation layer support returns always true. This will crash)                                         // STATUS: NOT DONE
