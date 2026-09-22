@@ -1,3 +1,4 @@
+#include "VULKAN_DESC_SET.hpp"
 #include <VULKAN_PIPELINE.hpp>
 #include <RE2_VERTEX.hpp>
 #include <cstdint>
@@ -84,7 +85,7 @@ static void POPULATE_RASTERIZATION_STATE_CREATE_INFO(VkPipelineRasterizationStat
     rasterizer.polygonMode = VK_POLYGON_MODE_FILL;
     rasterizer.lineWidth = 1.0f;
     rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
-    rasterizer.frontFace = VK_FRONT_FACE_CLOCKWISE;
+    rasterizer.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
     rasterizer.depthBiasEnable = VK_FALSE;
     rasterizer.depthBiasConstantFactor = 0.0f; // Optional
     rasterizer.depthBiasClamp = 0.0f; // Optional
@@ -170,7 +171,7 @@ static void POPULATE_VIEWPORT_STATE_CREATE_INFO(VkPipelineViewportStateCreateInf
 
 
 
-void VULKAN_PIPELINE::INIT_PIPELINE(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, VULKAN_SWAPCHAIN& SWAPCHAIN, VkShaderModule& vertexShaderModule, VkShaderModule& fragmentShaderModule)
+void VULKAN_PIPELINE::INIT_PIPELINE(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, VULKAN_SWAPCHAIN& SWAPCHAIN, VkShaderModule& vertexShaderModule, VkShaderModule& fragmentShaderModule, VULKAN_DESC_SET& DESC_SET)
 {
     INIT_SHADERS_WITH_SLANG2SPIRV(SHADERS);
     DEBUG_LOG("SHADERS COMPILED SUCCESSFULLY !!!");
@@ -230,6 +231,8 @@ void VULKAN_PIPELINE::INIT_PIPELINE(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, VULKA
 
     VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
     POPULATE_PIPELINE_LAYOUT_CREATE_INFO(pipelineLayoutInfo);
+    pipelineLayoutInfo.pSetLayouts = &DESC_SET.DESCRIPTOR_SET_LAYOUT;
+    pipelineLayoutInfo.setLayoutCount = 1;
     DEBUG_LOG("PIPELINE LAYOUT CREATE INFO HAS BEEN POPULATED SUCCESSFULLY !!!");
 
     if (vkCreatePipelineLayout(LOGICAL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), &pipelineLayoutInfo, nullptr, &PIPELINE_LAYOUT) != VK_SUCCESS)
@@ -277,11 +280,11 @@ void VULKAN_PIPELINE::INIT_PIPELINE(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, VULKA
     }
 }
 
-void VULKAN_PIPELINE::INIT(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, VULKAN_SWAPCHAIN& SWAPCHAIN)
+void VULKAN_PIPELINE::INIT(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, VULKAN_SWAPCHAIN& SWAPCHAIN, VULKAN_DESC_SET& DESC_SET)
 {
     VkShaderModule vertexShaderModule;
     VkShaderModule fragmentShaderModule;
-    VULKAN_PIPELINE::INIT_PIPELINE(LOGICAL_DEVICE, SWAPCHAIN, vertexShaderModule, fragmentShaderModule);
+    VULKAN_PIPELINE::INIT_PIPELINE(LOGICAL_DEVICE, SWAPCHAIN, vertexShaderModule, fragmentShaderModule, DESC_SET);
 
     vkDestroyShaderModule(LOGICAL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), vertexShaderModule, nullptr);
     vkDestroyShaderModule(LOGICAL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), fragmentShaderModule, nullptr);

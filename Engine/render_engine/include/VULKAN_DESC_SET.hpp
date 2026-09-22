@@ -8,7 +8,7 @@
 
 
 class VULKAN_DESC_SET{
-    private:
+    public:
         uint32_t DESC_COUNT;
         VULKAN_LOGICAL_DEVICE INTERNAL_LGD;
         VkDescriptorSetLayout DESCRIPTOR_SET_LAYOUT;

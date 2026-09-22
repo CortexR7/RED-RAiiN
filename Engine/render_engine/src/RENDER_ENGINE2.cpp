@@ -18,11 +18,11 @@ void RENDER_ENGINE2::INIT_ENGINE()
     DEBUG_LOG("Vulkan swapchain initialized!");
     VK_DESC.INIT(this->VKL_DEVICE, this->FRAMES_IN_FLIGHT);
     DEBUG_LOG("Description set initilaised !");
-    VK_PIPELINE.INIT(VKL_DEVICE, VK_SWAPCHAIN);
+    VK_PIPELINE.INIT(VKL_DEVICE, VK_SWAPCHAIN, this->VK_DESC);
     DEBUG_LOG("Vulkan pipeline initialized!");
     VK_CMD.INIT(VKP_DEVICE, MAIN_WINDOW, VKL_DEVICE, FRAMES_IN_FLIGHT);
     DEBUG_LOG("Vulkan command pool and buffers initialized!");
-    UBO.INIT(this->VKL_DEVICE, this->VKP_DEVICE, this->VK_CMD, this->FRAMES_IN_FLIGHT);
+    UBO.INIT(this->VKL_DEVICE, this->VKP_DEVICE, this->VK_CMD.CMD_POOL_GRAPHICS, this->FRAMES_IN_FLIGHT);
     DEBUG_LOG("UBO has been initialised");
     VK_DESC.UPDATE_SETS(this->UBO);
     DEBUG_LOG("Descriptor sets have been initialized");
@@ -55,7 +55,7 @@ void RENDER_ENGINE2::RUN_ENGINE()
     }
 }
 
-void RENDER_ENGINE2::DRAW_FRAME(void)
+void RENDER_ENGINE2::DRAW_FRAME()
 {
     vkWaitForFences(VKL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), 1, &VK_SYNC.FENCES.DATA()[CURRENT_FRAME], VK_TRUE, UINT64_MAX);
     vkResetFences(VKL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE(), 1, &VK_SYNC.FENCES.DATA()[CURRENT_FRAME]);
@@ -77,13 +77,17 @@ void RENDER_ENGINE2::DRAW_FRAME(void)
         throw std::runtime_error("failed to present swap chain image!");
     }
 
+    this->UBO.UPDATE_UBO(CURRENT_FRAME, this->VK_SWAPCHAIN);
+
     VK_CMD.RECORD_CMD_BUFFER_GRAPHICS(
+        CURRENT_FRAME,
         this->VK_CMD.CMD_BUFFERS_GRAPHICS.DATA()[CURRENT_FRAME],
         imageIndex,
         this->VK_SWAPCHAIN,
         this->VK_PIPELINE,
         this->VK_VERTEX_BUFFER,
-        this->VK_INDEX_BUFFER
+        this->VK_INDEX_BUFFER,
+        this->VK_DESC
     );
 
     VkSubmitInfo submitInfo{};

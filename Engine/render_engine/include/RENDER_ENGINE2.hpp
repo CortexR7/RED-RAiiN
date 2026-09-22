@@ -52,15 +52,16 @@ class RENDER_ENGINE2{
     };
 
     std::vector<RE2_V2D> RE2_DUMMY_VERTEX_DATA = {
-        {{-0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}},
-        {{0.5f, -0.5f}, {0.0f, 0.0f, 1.0f}},
-        {{0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}},
-        {{-0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}}
+        {{-0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}},
+        {{ 0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}},
+        {{ 0.5f,  0.5f}, {0.0f, 0.0f, 1.0f}},
+        {{-0.5f,  0.5f}, {1.0f, 1.0f, 1.0f}}
     };
 
 
     const std::vector<uint16_t> RE2_DUMMY_INDEX_DATA = {
-        0, 1, 2, 2, 3, 0
+        0, 1, 2,
+        2, 3, 0
     };
 
     /*  // NOTE: This data was culled away (I think due to backface culling)
@@ -92,7 +93,7 @@ class RENDER_ENGINE2{
     std::function<void(int, int)> RECREATE_SW_CHAIN_SAFELY;
 
     void RUN_ENGINE();
-    void DRAW_FRAME(void);
+    void DRAW_FRAME();
 
 
     RENDER_ENGINE2();

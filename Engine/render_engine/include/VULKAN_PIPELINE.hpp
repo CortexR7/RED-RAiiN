@@ -5,6 +5,7 @@
 #include <VULKAN_LOGICAL_DEVICE.hpp>
 #include <VULKAN_SWAPCHAIN.hpp>
 #include <SHADER_LIB.hpp>
+#include <VULKAN_DESC_SET.hpp>
 
 #define DEBUG_ON            // NOTE: comment this line out to disable debug logs for "VULKAN_PIPELINE.cpp"
 #include <ETL.hpp>
@@ -20,18 +21,19 @@
 class VULKAN_PIPELINE{
     private:
     ETL::StaticArray<SHADER> SHADERS{2};
-    
+
 
     void INIT_PIPELINE(
-        VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, 
-        VULKAN_SWAPCHAIN& SWAPCHAIN, 
-        VkShaderModule& vertexShaderModule, 
-        VkShaderModule& fragmentShaderModule
+        VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE,
+        VULKAN_SWAPCHAIN& SWAPCHAIN,
+        VkShaderModule& vertexShaderModule,
+        VkShaderModule& fragmentShaderModule,
+        VULKAN_DESC_SET& DESC_SET
     );
 
 
     public:
-    void INIT(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, VULKAN_SWAPCHAIN& SWAPCHAIN);
+    void INIT(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE, VULKAN_SWAPCHAIN& SWAPCHAIN, VULKAN_DESC_SET& DESC_SET);
     void FREE(VULKAN_LOGICAL_DEVICE& LOGICAL_DEVICE);
 
     VkPipelineLayout PIPELINE_LAYOUT;

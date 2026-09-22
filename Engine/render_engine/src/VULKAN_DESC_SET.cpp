@@ -75,7 +75,7 @@ void VULKAN_DESC_SET::UPDATE_SETS(RE2_UBO_OBJ& UBO)
         VkDescriptorBufferInfo BUFFER_INFO{};
         BUFFER_INFO.buffer = UBO.BUFFER[i];
         BUFFER_INFO.offset = 0;
-        BUFFER_INFO.range = sizeof(RE2_UBO_OBJ);
+        BUFFER_INFO.range = sizeof(RE2_UBO);
 
         VkWriteDescriptorSet DESCRIPTOR_WRITE{};
         DESCRIPTOR_WRITE.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;

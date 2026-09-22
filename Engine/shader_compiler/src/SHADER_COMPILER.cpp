@@ -30,7 +30,7 @@ void SLANG2SPIRV::createSoloSession()
     sessionDesc.preprocessorMacroCount = 0;
 
 
-    std::array<slang::CompilerOptionEntry, 2> compilerOptions = 
+    std::array<slang::CompilerOptionEntry, 3> compilerOptions =
     {
         {
             {
@@ -41,6 +41,10 @@ void SLANG2SPIRV::createSoloSession()
             {
                 slang::CompilerOptionName::Optimization,
                 {slang::CompilerOptionValueKind::Int, SLANG_OPTIMIZATION_LEVEL_HIGH, 0, nullptr, nullptr}
+            },
+            {
+                slang::CompilerOptionName::Capability,
+                {slang::CompilerOptionValueKind::String, 0, 0, "vk_mem_model", nullptr}
             }
         }
     };
@@ -101,7 +105,7 @@ void SLANG2SPIRV::createEntryPointsVertex()
 
 void SLANG2SPIRV::createComposedProgramVertex()
 {
-    std::array<slang::IComponentType*, 2> componentTypes = 
+    std::array<slang::IComponentType*, 2> componentTypes =
     {
         this->slangModuleVertex,
         this->entryPointVertex
@@ -111,7 +115,7 @@ void SLANG2SPIRV::createComposedProgramVertex()
         componentTypes.data(),
         componentTypes.size(),
         composedVertexProgram.writeRef(),
-        nullptr                 // leaving the blob out for now 
+        nullptr                 // leaving the blob out for now
     );
 }
 
@@ -119,7 +123,7 @@ void SLANG2SPIRV::linkVertexProgram()
 {
     SlangResult result = this->composedVertexProgram->link(
         this->linkedVertexProgram.writeRef(),
-        nullptr                 // leaving the blob out for now 
+        nullptr                 // leaving the blob out for now
     );
 }
 
@@ -189,7 +193,7 @@ void SLANG2SPIRV::createEntryPointsFragment()
 
 void SLANG2SPIRV::createComposedProgramFragment()
 {
-    std::array<slang::IComponentType*, 2> componentTypes = 
+    std::array<slang::IComponentType*, 2> componentTypes =
     {
         this->slangModuleFragment,
         this->entryPointFragment
@@ -199,7 +203,7 @@ void SLANG2SPIRV::createComposedProgramFragment()
         componentTypes.data(),
         componentTypes.size(),
         composedFragmentProgram.writeRef(),
-        nullptr                 // leaving the blob out for now 
+        nullptr                 // leaving the blob out for now
     );
 }
 
@@ -207,7 +211,7 @@ void SLANG2SPIRV::linkFragmentProgram()
 {
     SlangResult result = this->composedFragmentProgram->link(
         this->linkedFragmentProgram.writeRef(),
-        nullptr                 // leaving the blob out for now 
+        nullptr                 // leaving the blob out for now
     );
 }
 

@@ -2,7 +2,6 @@
 #define UNIFORM_BUFFER_OBJECT_HPP
 
 #include <VULKAN_SWAPCHAIN.hpp>
-#include <VULKAN_CMD.hpp>
 #include <cstdint>
 #include <vector>
 #include <vulkan/vulkan.h>
@@ -27,7 +26,7 @@ class RE2_UBO_OBJ : public RE2_VK_BUFFER{
         std::vector<RE2_UBO> UBOs;
 
     public:
-        void INIT(VULKAN_LOGICAL_DEVICE LGD, VULKAN_PHYSICAL_DEVICE PHD, const VULKAN_CMD& CMD_POOL, uint8_t UBO_COUNT);
+        void INIT(VULKAN_LOGICAL_DEVICE LGD, VULKAN_PHYSICAL_DEVICE PHD, const VkCommandPool& CMD_POOL, uint8_t UBO_COUNT);
         void FREE();
 
         void UPDATE_UBO(uint32_t INDEX, VULKAN_SWAPCHAIN& SW);
