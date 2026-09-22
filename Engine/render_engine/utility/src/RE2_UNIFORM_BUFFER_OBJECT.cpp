@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 
+
 void RE2_UBO_OBJ::INIT(VULKAN_LOGICAL_DEVICE LGD, VULKAN_PHYSICAL_DEVICE PHD, const VULKAN_CMD& CMD_POOL, uint8_t UBO_COUNT)
 {
     this->UBO_COUNT = UBO_COUNT;
@@ -43,4 +44,9 @@ void RE2_UBO_OBJ::UPDATE_UBO(uint32_t INDEX, VULKAN_SWAPCHAIN& SW)
 
     memcpy(this->DATA_PTRs[INDEX], &UBO, sizeof(UBO));
     this->UBOs[INDEX] = UBO;
+}
+
+void RE2_UBO_OBJ::FREE()
+{
+    RE2_VK_BUFFER::FREE();
 }

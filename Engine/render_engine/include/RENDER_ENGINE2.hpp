@@ -1,6 +1,7 @@
 #ifndef RENDER_ENGINE_2_HPP
 #define RENDER_ENGINE_2_HPP
 
+
 #include <WINDOW.hpp>
 #include <VULKAN_INSTANCE.hpp>
 #include <VULKAN_PHYSICAL_DEVICE.hpp>
@@ -10,6 +11,8 @@
 #include <VULKAN_CMD.hpp>
 #include <VULKAN_QUEUE.hpp>
 #include <VULKAN_SYNC.hpp>
+#include <VULKAN_DESC_SET.hpp>
+#include <RE2_UNIFORM_BUFFER_OBJECT.hpp>
 
 // utility class
 #include <RE2_VERTEX.hpp>
@@ -79,8 +82,10 @@ class RENDER_ENGINE2{
     VULKAN_CMD VK_CMD;
     QUEUE VK_QUEUE;
     VULKAN_SYNC VK_SYNC;
+    VULKAN_DESC_SET VK_DESC;
     RE2_VERTEX_BUFFER VK_VERTEX_BUFFER;
     RE2_INDEX_BUFFER VK_INDEX_BUFFER;
+    RE2_UBO_OBJ UBO;
     uint8_t FRAMES_IN_FLIGHT = 2;
     uint8_t CURRENT_FRAME = 0;
 

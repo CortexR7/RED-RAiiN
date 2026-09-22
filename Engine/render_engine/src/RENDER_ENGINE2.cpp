@@ -16,10 +16,16 @@ void RENDER_ENGINE2::INIT_ENGINE()
     DEBUG_LOG("Vulkan logical device initialized!");
     VK_SWAPCHAIN.INIT(MAIN_WINDOW, VKP_DEVICE, VKL_DEVICE);
     DEBUG_LOG("Vulkan swapchain initialized!");
+    VK_DESC.INIT(this->VKL_DEVICE, this->FRAMES_IN_FLIGHT);
+    DEBUG_LOG("Description set initilaised !");
     VK_PIPELINE.INIT(VKL_DEVICE, VK_SWAPCHAIN);
     DEBUG_LOG("Vulkan pipeline initialized!");
     VK_CMD.INIT(VKP_DEVICE, MAIN_WINDOW, VKL_DEVICE, FRAMES_IN_FLIGHT);
     DEBUG_LOG("Vulkan command pool and buffers initialized!");
+    UBO.INIT(this->VKL_DEVICE, this->VKP_DEVICE, this->VK_CMD, this->FRAMES_IN_FLIGHT);
+    DEBUG_LOG("UBO has been initialised");
+    VK_DESC.UPDATE_SETS(this->UBO);
+    DEBUG_LOG("Descriptor sets have been initialized");
     VK_VERTEX_BUFFER.INIT(
         (void*)RE2_DUMMY_VERTEX_DATA.data(),
         static_cast<size_t>(sizeof(RE2_DUMMY_VERTEX_DATA[0]) * RE2_DUMMY_VERTEX_DATA.size()),
@@ -117,6 +123,8 @@ void RENDER_ENGINE2::DRAW_FRAME(void)
 void RENDER_ENGINE2::FREE_ENGINE()
 {
     vkDeviceWaitIdle(VKL_DEVICE.GET_HANDLE_TO_VK_LOGICAL_DEVICE());
+    UBO.FREE();
+    VK_DESC.FREE();
     VK_CMD.FREE(VKL_DEVICE);
     VK_SYNC.FREE(VKL_DEVICE);
     VK_PIPELINE.FREE(VKL_DEVICE);

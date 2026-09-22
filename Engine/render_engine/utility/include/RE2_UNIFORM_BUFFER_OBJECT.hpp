@@ -20,7 +20,7 @@ struct RE2_UNIFORM_BUFFER_OBJECT{
 using RE2_UBO = RE2_UNIFORM_BUFFER_OBJECT;
 
 
-class RE2_UBO_OBJ : RE2_VK_BUFFER{
+class RE2_UBO_OBJ : public RE2_VK_BUFFER{
     private:
         uint8_t UBO_COUNT;
         std::vector<void*> DATA_PTRs;
