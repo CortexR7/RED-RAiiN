@@ -28,6 +28,7 @@ struct VSOutput
 ConstantBuffer<RE2_UBO> ubo;
 
 // WARNING: This function takes in a mat4 that is in row_major and converts it to column_major
+// This function is obsolete now since there is a simple keyword that can be added to adress this issue.
 mat4 S_MATRIX_TO_G_MATRIX(mat4 M_S)
 {
     mat4 M_G;
