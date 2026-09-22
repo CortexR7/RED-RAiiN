@@ -100,6 +100,7 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/src/VULKAN_LOGICAL_DEVICE.cpp
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/src/VULKAN_INSTANCE.cpp
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/src/VULKAN_CMD.cpp
+        ${PROJECT_SOURCE_DIR}/Engine/render_engine/src/VULKAN_DESC_SET.cpp
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/src/RENDER_ENGINE2.cpp
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/utility/src/RE2_VERTEX2D.cpp
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/utility/src/RE2_VK_BUFFER.cpp
@@ -123,6 +124,7 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/include/VULKAN_LOGICAL_DEVICE.hpp
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/include/VULKAN_INSTANCE.hpp
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/include/VULKAN_CMD.hpp
+        ${PROJECT_SOURCE_DIR}/Engine/render_engine/include/VULKAN_DESC_SET.hpp
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/include/RENDER_ENGINE2.hpp
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/utility/include/RE2_VERTEX.hpp
         ${PROJECT_SOURCE_DIR}/Engine/render_engine/utility/include/RE2_VK_BUFFER.hpp
