@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.3.1)
+cmake_minimum_required(VERSION 4.3.0)
 project("RED-RAiiN")
 
 set(CMAKE_CXX_STANDARD 20)
