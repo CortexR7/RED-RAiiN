@@ -9,6 +9,12 @@
 #define VALIDATION_LAYER_ON true    // set this to false or true
 #include <ETL.hpp>
 
+/*
+*   Copyright (c) 2026 CortexR7
+*
+*   This class represents the Vulkan Instnace
+*/
+
 
 class VULKAN_INSTANCE{
 

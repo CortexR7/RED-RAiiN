@@ -18,6 +18,11 @@
 #undef min
 #endif
 
+/*
+*   Copyright (c) 2026 CortexR7
+*
+*   This class defines the swapchain
+*/
 
 struct SwapChainSupportDetails{
     VkSurfaceCapabilitiesKHR capabilities;

@@ -20,6 +20,11 @@
 #define DEBUG_ON            // NOTE: comment this line out to disable debug logs for "VULKAN_CMD.cpp"
 #include <ETL.hpp>
 
+/*
+*   Copyright (c) 2026 CortexR7
+*
+*   This class defines the Vulkan Command buffer
+*/
 
 
 class VULKAN_CMD{

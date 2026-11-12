@@ -24,7 +24,7 @@ struct VULKAN_PHYSICAL_DEVICE_PRINTABLE_META_DATA{
     std::string driverInfo;
     std::string deviceName;
 
-    void PRINT_META_INFO();     // this one caan be used to indepnedetly log the meta data even if DEBUG_ON is not defined
+    void PRINT_META_INFO();     // this one can be used to indepnedetly log the meta data even if DEBUG_ON is not defined
     void PRINT_META_INFO_DBG(); // us this method for DEBUG_LOGGING
 };
 

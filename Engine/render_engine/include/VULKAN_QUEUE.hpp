@@ -7,7 +7,11 @@
 // This class defines a set of Vulkan queues that are used to submit
 // different types of commands
 
-
+/*
+*   Copyright (c) 2026 CortexR7
+*
+*   This class defines the QUEUE which here currently only either a graphics or a present queue
+*/
 
 struct QueueFamilyIndices {
     std::optional<uint32_t> graphicsFamily;

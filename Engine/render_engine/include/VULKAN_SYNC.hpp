@@ -9,7 +9,13 @@
 #define DEBUG_ON
 #include <ETL.hpp>
 
-
+/*
+*   Copyright (c) 2026 CortexR7
+*
+*   This class defines all of the sync objects used by the engine. it handles creation and dstructiopn of these objects.
+*
+*   Please consider getting ridd off the ETL. (ETL causes more issues that fixes stick to the STL)
+*/
 
 class VULKAN_SYNC{
     public:

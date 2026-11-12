@@ -9,6 +9,12 @@
 #include <RE2_VK_BUFFER.hpp>
 
 
+/*
+*  Copyright (c) 2026 CortexR7
+*
+*  This Header file defines an Index Buffer
+*/
+
 class RE2_INDEX_BUFFER : public RE2_VK_BUFFER{
 
     public:

@@ -50,5 +50,11 @@ void RE2_UBO_OBJ::UPDATE_UBO(uint32_t INDEX, VULKAN_SWAPCHAIN& SW)
 
 void RE2_UBO_OBJ::FREE()
 {
+    const VkDevice logicalDevice = RE2_VK_BUFFER::LGD.GET_HANDLE_TO_VK_LOGICAL_DEVICE();
+    for(uint8_t i = 0; i < UBO_COUNT; ++i)
+    {
+        vkUnmapMemory(logicalDevice, this->BUFFER_MEMORY[i]);
+        this->DATA_PTRs[i] = nullptr;
+    }
     RE2_VK_BUFFER::FREE();
 }

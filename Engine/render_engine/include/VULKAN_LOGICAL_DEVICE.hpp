@@ -10,6 +10,11 @@
 #define DEBUG_ON
 #include <ETL.hpp>
 
+/*
+*   Copyright (c) 2026 CortexR7
+*
+*   This class represents the Vulkan Logical Device
+*/
 
 class VULKAN_LOGICAL_DEVICE{
     private:

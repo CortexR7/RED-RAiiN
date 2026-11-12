@@ -10,6 +10,12 @@
 #include <VULKAN_LOGICAL_DEVICE.hpp>
 #include <VULKAN_PHYSICAL_DEVICE.hpp>
 
+/*
+*  Copyright (c) 2026 CortexR7
+*
+*  This Header file defines a RE2_Uniform object.
+*  It is mostly a class that represents a uniform.
+*/
 
 struct RE2_UNIFORM_BUFFER_OBJECT{
     glm::mat4 MODEL;

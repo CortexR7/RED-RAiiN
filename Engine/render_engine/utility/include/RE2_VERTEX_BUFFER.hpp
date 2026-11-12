@@ -7,6 +7,13 @@
 #include <vulkan/vulkan.h>
 #include <RE2_VK_BUFFER.hpp>
 
+/*
+*  Copyright (c) 2026 CortexR7
+*
+*  This Header file defines a class can be used to create a vertexbuffer.
+*  This vertex buffer is agnostic. Which means it does not assume what type of vertex it is.
+*/
+
 
 class RE2_VERTEX_BUFFER : public RE2_VK_BUFFER{
 

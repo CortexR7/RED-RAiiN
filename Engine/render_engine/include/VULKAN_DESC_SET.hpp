@@ -8,8 +8,8 @@
 *  It represents an object that does follwing things:
 *
 *  - It stores descriptors sets of "DESC_COUNT"
-*  - It stores the descriptor pool from where th sets get allocated
-*  - It stores exacltly ONE descriptor set layout (all other x amount of descripto sets are based on that layout.) x = DESC_SET
+*  - It stores the descriptor pool from where the sets get allocated
+*  - It stores exacltly ONE descriptor set layout (all other x amount of descriptor sets are based on that layout.) x = DESC_SET
 *
 */
 
